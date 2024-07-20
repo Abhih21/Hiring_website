@@ -1,4 +1,12 @@
+
 header{
-    width: 81%;
-    height: 80px;
+    width: 80%;
+    height: 70px;
 }
+  
+  /* Media query for laptops and larger screens */
+  @media (min-width: 1024px) {
+    .navbar {
+      display: flex; /* Show the header */
+    }
+  }
