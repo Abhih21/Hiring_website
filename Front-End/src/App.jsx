@@ -9,6 +9,9 @@ import ScheduleInterview from './components/Pages/ApplicantsPage/ScheduleIntervi
 import ApplicationTracking from './components/Pages/ApplicantTracking/ApplicantTracking.jsx';
 import ApplicantTracking from './components/Pages/ApplicantTracking/ApplicantTracking.jsx';
 import InterviewScheduled from './components/Pages/ApplicantTracking/InterviewScheduled.jsx';
+import JobPage from './components/Pages/Job_pages/JobPage.jsx';
+import JobPostForm from './components/Pages/Job_pages/JobPostForm.jsx';
+import JobDescription from './components/Pages/Job_pages/JobDescription.jsx';
 
 
 
@@ -26,6 +29,9 @@ function App() {
         <Route path="/scheduleinterview" element={<ScheduleInterview />} />
         <Route path="/applicanttracking" element={<ApplicantTracking />} />
         <Route path="/InterviewScheduled" element={<InterviewScheduled />} />
+        <Route path="/JobPage" element={<JobPage />} />
+        <Route path="/JobPostForm" element={<JobPostForm />} />
+        <Route path="/jobDescription" element={<JobDescription />} />
       </Routes>
   
   );
