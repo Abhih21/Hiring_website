@@ -1,8 +1,8 @@
 // src/components/LoginPage.jsx
 import  { useState } from 'react';
 import axios from 'axios';
-import backgroundImage from '../../assets/image 91 (1).png'
-import Logo from '../../assets/CC logo.jpg'
+import backgroundImage from '../../assets/Images/image 91 (1).png'
+import Logo from '../../assets/Images/CC logo.jpg'
 import { Navigate } from 'react-router-dom';
 
 const SignUpPage = () => {
@@ -16,7 +16,7 @@ const SignUpPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('l', { email, password, username, name });
+      const response = await axios.post('http://localhost:4000/api/v1/user/login', { email, password, username, name });
       setMessage(response.data.message);
       console.log(response.data.message);
       console.log(response.data);
