@@ -1,15 +1,9 @@
-
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FaHome, FaChartLine, FaClipboardList, FaUserFriends, FaCalendarAlt, FaBars, FaTimes } from 'react-icons/fa';
 import Logo from '../../assets/Images/coloredcow-logo.png';
 
-
-
-
-
-
-function Sidebar()  {
+function Sidebar() {
     const [activePage, setActivePage] = useState('/');
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -17,13 +11,11 @@ function Sidebar()  {
     // const dispatch = useDispatch();
     // const navigate = useNavigate();
 
-// for checking if user is logged
+    // for checking if user is logged
     // const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
 
-// for displaying the options acc to role
-    // const role = useSelector((state) => state?.auth?.role)
-
-
+    // for displaying the options according to role
+    // const role = useSelector((state) => state?.auth?.role);
 
     const handleSetActivePage = (page) => {
         setActivePage(page);
@@ -45,22 +37,19 @@ function Sidebar()  {
 
     return (
         <>
-        {/* {isLoggedIn &&()} */}
-     
-            <div className="flex fixed  h-screen ">
+            {/* {isLoggedIn &&()} */}
+            <div className="flex fixed h-screen">
                 {/* Sidebar */}
-                <div className={` h-screen w-72 bg-custom-sidebar text-custom-text flex flex-col transition-transform transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 lg:relative absolute z-10`}>
+                <div className={`h-screen w-72 bg-custom-sidebar text-custom-text flex flex-col transition-transform transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 lg:relative absolute z-10`}>
                     <div className="flex items-center justify-center h-20 border-b border-gray-700 mt-4">
-                        <img src={Logo} alt="Logo" className='mb-3' />
+                        <img src={Logo} alt="Logo" className="mb-3" />
                     </div>
                     <nav className="flex-1 pt-6">
                         {links.map((link) => (
                             <NavLink
                                 key={link.path}
                                 to={link.path}
-                                className={`py-3 px-6 text-lg flex mt-1 items-center ${
-                                    activePage === link.path ? 'text-blue-700 border-l-4 border-blue-500' : 'hover:bg-sky-300'
-                                }`}
+                                className={`py-3 px-6 text-lg flex mt-1 items-center ${activePage === link.path ? 'text-blue-700 border-l-4 border-blue-500' : 'hover:bg-sky-300'}`}
                                 onClick={() => handleSetActivePage(link.path)}
                             >
                                 {link.icon}
@@ -68,10 +57,10 @@ function Sidebar()  {
                             </NavLink>
                         ))}
                         <button
-                            className=" py-3 px-6 text-lg w-full text-left flex items-center hover:bg-sky-300"
+                            className="py-3 px-6 text-lg w-full text-left flex items-center hover:bg-sky-300"
                             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                         >
-                            <span className="">{isDropdownOpen ? '▼' : '▶'} Interview Management</span>
+                            <span>{isDropdownOpen ? '▼' : '▶'} Interview Management</span>
                         </button>
                         {isDropdownOpen && (
                             <div className="pl-6">
@@ -79,9 +68,7 @@ function Sidebar()  {
                                     <NavLink
                                         key={sublink.path}
                                         to={sublink.path}
-                                        className={` py-2 px-6 text-lg flex items-center ${
-                                            activePage === sublink.path ? ' text-blue-700 border-l-4 border-blue-500' : 'hover:bg-sky-300'
-                                        }`}
+                                        className={`py-2 px-6 text-lg flex items-center ${activePage === sublink.path ? 'text-blue-700 border-l-4 border-blue-500' : 'hover:bg-sky-300'}`}
                                         onClick={() => handleSetActivePage(sublink.path)}
                                     >
                                         {sublink.icon}
@@ -100,7 +87,6 @@ function Sidebar()  {
                         {isSidebarOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
                     </button>
                 </div>
-            
             </div>
         </>
     );
