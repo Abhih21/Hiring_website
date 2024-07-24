@@ -1,11 +1,31 @@
 import React, { useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const ProfileCard = ({ user, onLogout }) => {
+const Logout = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
 
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
+  };
+
+  // const token = localStorage.getItem('accessToken'); 
+  // console.log("accToken :::",Acctoken);
+
+  const handleLogout = async () => {
+    try {
+      const confirmLogout = window.confirm("Are you sure you want to log out?");
+      if (confirmLogout) {
+        localStorage.removeItem("user");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        navigate("/loginPage"); 
+      }
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
   };
 
   return (
@@ -16,10 +36,8 @@ const ProfileCard = ({ user, onLogout }) => {
       {isVisible && (
         <div className="absolute top-full right-0 mt-2 z-1 bg-black shadow-lg rounded-lg p-4 w-60">
           <div className="flex flex-col items-center">
-            <h3 className="text-lg font-semibold">{user.name}</h3>
-            <p className="text-gray-600">{user.email}</p>
             <button
-              onClick={onLogout}
+              onClick={handleLogout}
               className="mt-4 bg-red-500 text-white p-2 rounded-lg hover:bg-red-600"
             >
               Logout
@@ -31,4 +49,4 @@ const ProfileCard = ({ user, onLogout }) => {
   );
 };
 
-export default ProfileCard;
+export default Logout;

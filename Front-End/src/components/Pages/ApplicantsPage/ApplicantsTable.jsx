@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const applicants = [
   { name: 'Jake Gyll', status: 'Pending', category: 'Full time', date: '13 July, 2024', action: 'See Application', img: 'path/to/image1.jpg' },
@@ -52,9 +53,11 @@ const ApplicantsTable = () => {
                 <div className="text-base font-normal leading-5 text-gray-900">{applicant.date}</div>
               </td>
               <td className="px-6 py-4 border-b border-gray-200">
+              <Link to="/detailsapplicant">
                 <button className="bg-blue-600 text-slate-100 hover:bg-blue-500 hover:text-slate-300 font-bold py-2.5 px-4 rounded">
                   {applicant.action}
                 </button>
+              </Link>
               </td>
             </tr>
           ))}

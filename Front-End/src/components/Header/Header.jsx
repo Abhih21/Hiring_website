@@ -1,18 +1,14 @@
 import React from 'react';
 import './Header.css';
 import { FaSearch, FaBell, FaCog } from 'react-icons/fa';
-import ProfileCard from './ProfileCard';
+
+import Logout from '../LogIn/Logout';
 
 const Header = () => {
-  const user = {
-    name: 'Abhishek Negi',
-    email: 'abhi@gmail.com',
-  };
 
-  const handleLogout = () => {
-    console.log('User logged out');
-    // Add your logout logic here
-  };
+ 
+
+  
 
   return (
     <header className="text-white bg-white flex navbar absolute left-72 items-center justify-between px-6 py-3 shadow-md">
@@ -33,7 +29,7 @@ const Header = () => {
         <div className="bg-gray-300 w-8 h-8 flex items-center justify-center rounded-full">
           <FaBell className="text-gray-600 hover:text-white cursor-pointer" />
         </div>
-        <ProfileCard user={user} onLogout={handleLogout} />
+        <Logout />
       </div>
     </header>
   );

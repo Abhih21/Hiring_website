@@ -6,6 +6,7 @@ import { BsEye } from "react-icons/bs";
 import ApplicantTable from "./ApplicantTable.jsx";
 import DateSelection from "./DateSelection.jsx";
 import SemiDonutChart from "./SemiDonutChart.jsx";
+import { Button } from "@headlessui/react";
 
 const DashboardPage = () => {
   const [applicantCurrentPage, setApplicantCurrentPage] = useState(1);
@@ -31,7 +32,7 @@ const DashboardPage = () => {
 
   return (
     <>
-      <div className="flex h-full  mb-16">
+      <div className="flex h-full  ">
         <HomeLayout />
         <section className="relative left-72">
           <div className="mt-24 ml-8  flex flex-row gap-40 ">
@@ -55,7 +56,7 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          <section className="graphSection flex mt-1">
+          <section className="graphSection flex mt-14 ml-8">
             <div className="">
               <Barchart
                 className="flex ml-4 mt-12"
@@ -109,9 +110,9 @@ const DashboardPage = () => {
             <ApplicantTable currentPage={applicantCurrentPage} />
           </div>
           <div className="flex justify-center items-center">
-            <button className="bg-blue-500 hover:bg-blue-700 mt-6  text-white py-2 px-9 rounded">
+            <Button className="bg-blue-500 hover:bg-blue-700 mt-6  text-white py-2 px-9 rounded">
               More
-            </button>
+            </Button>
           </div>
         </section>
       </div>

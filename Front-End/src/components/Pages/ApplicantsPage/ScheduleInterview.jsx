@@ -1,5 +1,6 @@
 import { useState } from "react";
 import HomeLayout from "../../../Layouts/HomeLayout";
+import { Link } from "react-router-dom";
 
 const applicant = {
     name: 'Jane Doe',
@@ -29,13 +30,14 @@ const ScheduleInterview = () => {
     <div className="">
       <div className="bg-white shadow-md rounded-lg p-8">
         <h1 className="text-4xl font-bold mb-14 text-center">Schedule Interview</h1>
-    <div className="flex justify-end space-x-4 px-14 mb-8">
-                    <button onClick={() => setStage('In-Review')} className={`px-4 py-2 rounded ${stage === 'In-Review' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>In-Review</button>
-                    <button onClick={() => setStage('Shortlisted')} className={`px-4 py-2 rounded ${stage === 'Shortlisted' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Shortlisted</button>
-                    <button onClick={() => setStage('Interview')} className={`px-4 py-2 rounded ${stage === 'Interview' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Interview</button>
-                    <button onClick={() => setStage('Hired / Declined')} className={`px-4 py-2 rounded ${stage === 'Hired / Declined' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Hired / Declined</button>
+        <div className="flex w-11/12 ml-80">
+    <div className="flex justify-end space-x-4    mb-8  bg-slate-100 p-3 rounded-md items-center">
+    <Link to="/detailsapplicant"><button onClick={() => setStage('In-Review')} className={`px-4 py-2 rounded ${stage === 'In-Review' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Profile</button></Link>
+                    <Link to="/Applicantresume"><button onClick={() => setStage('Shortlisted')} className={`px-4 py-2 rounded ${stage === 'Shortlisted' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Resume</button></Link>
+                    <Link to="/scheduleinterview"><button onClick={() => setStage('Interview')} className={`px-4 py-2 rounded ${stage === 'Interview' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Schedule Interview</button></Link>
+                    <Link to="/InterviewScheduled"> <button onClick={() => setStage('Hired / Declined')} className={`px-4 py-2 rounded ${stage === 'Hired / Declined' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Hiring Process</button></Link>
                 </div>
-        
+                </div>
         <div className="mb-4">
           <h2 className="text-xl font-semibold">Applicant Profile</h2>
           <div className="mt-2">

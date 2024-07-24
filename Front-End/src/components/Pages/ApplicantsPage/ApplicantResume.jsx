@@ -2,6 +2,7 @@ import { GoArrowLeft, GoChevronDown } from "react-icons/go";
 import HomeLayout from "../../../Layouts/HomeLayout";
 import CategoryMenu from "./CategoryMenu";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 
@@ -50,10 +51,10 @@ function ApplicantResume() {
         </div>
         <div className="">
                 <div className="flex mt-28 mr-8 bg-slate-100 p-3 rounded-md items-center space-x-4 ">
-                    <button onClick={() => setStage('In-Review')} className={`px-4 py-2 rounded ${stage === 'In-Review' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>In-Review</button>
-                    <button onClick={() => setStage('Shortlisted')} className={`px-4 py-2 rounded ${stage === 'Shortlisted' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Shortlisted</button>
-                    <button onClick={() => setStage('Interview')} className={`px-4 py-2 rounded ${stage === 'Interview' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Interview</button>
-                    <button onClick={() => setStage('Hired / Declined')} className={`px-4 py-2 rounded ${stage === 'Hired / Declined' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Hired / Declined</button>
+                <Link to="/detailsapplicant"><button onClick={() => setStage('In-Review')} className={`px-4 py-2 rounded ${stage === 'In-Review' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Profile</button></Link>
+                    <Link to="/Applicantresume"><button onClick={() => setStage('Shortlisted')} className={`px-4 py-2 rounded ${stage === 'Shortlisted' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Resume</button></Link>
+                    <Link to="/scheduleinterview"><button onClick={() => setStage('Interview')} className={`px-4 py-2 rounded ${stage === 'Interview' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Schedule Interview</button></Link>
+                    <Link to="/InterviewScheduled"> <button onClick={() => setStage('Hired / Declined')} className={`px-4 py-2 rounded ${stage === 'Hired / Declined' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Hiring Process</button></Link>
                 </div>
                 </div>
         </div> 

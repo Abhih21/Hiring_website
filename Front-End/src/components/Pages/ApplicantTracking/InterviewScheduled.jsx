@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import HomeLayout from '../../../Layouts/HomeLayout';
+import { Link } from 'react-router-dom';
 
 const InterviewScheduled = () => {
     const [stage, setStage] = useState('Interview'); // Set initial stage based on your data
@@ -28,11 +29,11 @@ const InterviewScheduled = () => {
         <>    
         <div className='flex'>  
           <HomeLayout></HomeLayout>
-        <div className="flex flex-col relative left-80 top-20    p-8 font-sans min-h-screen">
+        <div className="flex flex-col w-10/12 relative left-80 top-20 p-8 font-sans min-h-screen">
            <div className='mb-4'>
          <h1 className='text-3xl'>Applicant Details</h1>
             </div>
-            <hr />
+            
             <div>
             <section className='flex items-end mt-8 '>
             <div className="text-center  p-6 rounded-lg shadow-md">
@@ -48,11 +49,12 @@ const InterviewScheduled = () => {
                     ))}
                 </div>
             </div>
-               <div>               <div className="flex  space-x-4 items-center mt-4 mb-8">
-                    <button onClick={() => setStage('In-Review')} className={`px-4 py-2 rounded ${stage === 'In-Review' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>In-Review</button>
-                    <button onClick={() => setStage('Shortlisted')} className={`px-4 py-2 rounded ${stage === 'Shortlisted' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Shortlisted</button>
-                    <button onClick={() => setStage('Interview')} className={`px-4 py-2 rounded ${stage === 'Interview' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Interview</button>
-                    <button onClick={() => setStage('Hired / Declined')} className={`px-4 py-2 rounded ${stage === 'Hired / Declined' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Hired / Declined</button>
+               <div>         
+                      <div className="flex  space-x-4 items-center mt-4 mb-8">
+                      <Link to="/detailsapplicant"><button onClick={() => setStage('In-Review')} className={`px-4 py-2 rounded ${stage === 'In-Review' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Profile</button></Link>
+                    <Link to="/Applicantresume"><button onClick={() => setStage('Shortlisted')} className={`px-4 py-2 rounded ${stage === 'Shortlisted' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Resume</button></Link>
+                    <Link to="/scheduleinterview"><button onClick={() => setStage('Interview')} className={`px-4 py-2 rounded ${stage === 'Interview' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Schedule Interview</button></Link>
+                    <Link to="/InterviewScheduled"> <button onClick={() => setStage('Hired / Declined')} className={`px-4 py-2 rounded ${stage === 'Hired / Declined' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Hiring Process</button></Link>
                 </div>
             <div className="w-11/12 mt-8">
                 {stage === 'Interview' && (

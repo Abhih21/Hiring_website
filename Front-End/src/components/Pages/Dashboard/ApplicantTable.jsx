@@ -1,3 +1,5 @@
+import { Button } from "@headlessui/react";
+import { Link } from "react-router-dom";
 
 
 const ApplicantTable = () => {
@@ -30,9 +32,13 @@ const ApplicantTable = () => {
               <td className="py-7 px-4">{job.openings}</td>
               <td className="py-7 px-4">{job.applicants}</td>
               <td className="py-7 px-4">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-9 rounded">
-                  View
-                </button>
+              <Link to="/applicants">
+        <Button 
+          className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-9 rounded"
+        >
+          View
+        </Button>
+      </Link>
               </td>
             </tr>
              

@@ -12,6 +12,8 @@ import InterviewScheduled from './components/Pages/ApplicantTracking/InterviewSc
 import JobPage from './components/Pages/Job_pages/JobPage.jsx';
 import JobPostForm from './components/Pages/Job_pages/JobPostForm.jsx';
 import JobDescription from './components/Pages/Job_pages/JobDescription.jsx';
+import PrivateRoute from '../PrivateRoute.jsx';
+import Logout from './components/LogIn/Logout.jsx';
 
 
 
@@ -20,14 +22,16 @@ function App() {
    
       <Routes>
         <Route exact path="/" element={<LoginPage />} />
-        <Route path="/loginpage" element={<LoginPage />} />
+        <Route path="/loginPage" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/dashboard" element={<PrivateRoute element={Dashboard} />} />
         <Route path="/applicants" element={<ApplicantsPage />} />
         <Route path="/detailsapplicant" element={<DetailsApplicant />} />
         <Route path="/Applicantresume" element={<ApplicantResume />} />
         <Route path="/scheduleinterview" element={<ScheduleInterview />} />
         <Route path="/applicanttracking" element={<ApplicantTracking />} />
+        <Route path="/scheduleinterview" element={<ScheduleInterview />} />
         <Route path="/InterviewScheduled" element={<InterviewScheduled />} />
         <Route path="/JobPage" element={<JobPage />} />
         <Route path="/JobPostForm" element={<JobPostForm />} />
