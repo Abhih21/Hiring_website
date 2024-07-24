@@ -2,7 +2,8 @@
 export default {
   content: [
     './index.html',
-    './src/**/*.{js,ts,jsx,tsx}',
+    './src/**/*.{html,js,ts,jsx,tsx}',
+    'node_modules/preline/dist/*.js',
   ],
   theme: {
     extend: {
@@ -10,11 +11,10 @@ export default {
         'custom-sidebar': '#D7DDFA',
         'custom-text': '#7C8493',
         'custom-grey': '#898989',
-
+        'custom-container': '#D9D9D9',
       },
     },
   },
-  mode:'jit',
-  plugins: [],
-}
-
+  mode: 'jit',
+  // plugins: [require('daisyui')],
+};
