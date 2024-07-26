@@ -1,16 +1,16 @@
 // PostJobForm.js
-import React, { useState } from 'react';
-import HomeLayout from '../../../Layouts/HomeLayout';
-import { GoArrowLeft } from 'react-icons/go';
+import React, { useState } from "react";
+import HomeLayout from "../../../Layouts/HomeLayout";
+import { GoArrowLeft } from "react-icons/go";
 
 const JobPostForm = () => {
-  const [jobTitle, setJobTitle] = useState('');
+  const [jobTitle, setJobTitle] = useState("");
   const [salaryRange, setSalaryRange] = useState([5000, 22000]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [skills, setSkills] = useState([
-    'Graphic Design',
-    'Communication',
-    'Illustrator',
+    "Graphic Design",
+    "Communication",
+    "Illustrator",
   ]);
 
   return (
@@ -23,7 +23,7 @@ const JobPostForm = () => {
               <div className="flex gap-3">
                 <GoArrowLeft className="text-2xl mt-3" />
                 <button className="text-gray-600 mb-4 text-4xl ">
-                  {' '}
+                  {" "}
                   Post a Job
                 </button>
               </div>
@@ -40,7 +40,7 @@ const JobPostForm = () => {
               <h2 className="text-xl w-10/11 font-semibold mb-2">
                 Basic Information
               </h2>
-              
+
               <p className="text-gray-600 mb-4">
                 This information will be displayed publicly
               </p>
@@ -54,7 +54,7 @@ const JobPostForm = () => {
                   className="w-3/4 p-2 border rounded"
                   placeholder="e.g. Software Engineer"
                   value={jobTitle}
-                  onChange={e => setJobTitle(e.target.value)}
+                  onChange={(e) => setJobTitle(e.target.value)}
                 />
                 <p className="mt-2 text-gray-600 text-sm">
                   At least 80 characters
@@ -66,12 +66,12 @@ const JobPostForm = () => {
                 </label>
                 <div className="flex text-lg mt-2 flex-wrap space-x-4">
                   {[
-                    'Full-Time',
-                    'Part-Time',
-                    'Remote',
-                    'Internship',
-                    'Contract',
-                  ].map(type => (
+                    "Full-Time",
+                    "Part-Time",
+                    "Remote",
+                    "Internship",
+                    "Contract",
+                  ].map((type) => (
                     <div key={type} className="flex items-center space-x-2">
                       <input
                         type="checkbox"
@@ -94,7 +94,7 @@ const JobPostForm = () => {
                     type="number"
                     className="w-1/3 p-2 border rounded"
                     value={salaryRange[0]}
-                    onChange={e =>
+                    onChange={(e) =>
                       setSalaryRange([+e.target.value, salaryRange[1]])
                     }
                   />
@@ -103,7 +103,7 @@ const JobPostForm = () => {
                     type="number"
                     className="w-1/3 p-2 border rounded"
                     value={salaryRange[1]}
-                    onChange={e =>
+                    onChange={(e) =>
                       setSalaryRange([salaryRange[0], +e.target.value])
                     }
                   />
@@ -113,7 +113,7 @@ const JobPostForm = () => {
                   min="0"
                   max="50000"
                   value={salaryRange[0]}
-                  onChange={e =>
+                  onChange={(e) =>
                     setSalaryRange([+e.target.value, salaryRange[1]])
                   }
                   className="w-1/2 block mt-3"
@@ -123,7 +123,7 @@ const JobPostForm = () => {
                   min="0"
                   max="50000"
                   value={salaryRange[1]}
-                  onChange={e =>
+                  onChange={(e) =>
                     setSalaryRange([salaryRange[0], +e.target.value])
                   }
                   className="w-1/2 mt-3"
@@ -137,9 +137,11 @@ const JobPostForm = () => {
                   multiple
                   className="w-3/4 p-2 border rounded"
                   value={selectedCategories}
-                  onChange={e =>
+                  onChange={(e) =>
                     setSelectedCategories(
-                      [...e.target.selectedOptions].map(option => option.value)
+                      [...e.target.selectedOptions].map(
+                        (option) => option.value,
+                      ),
                     )
                   }
                 >
@@ -153,7 +155,7 @@ const JobPostForm = () => {
                   Required Skills
                 </label>
                 <div className="flex flex-wrap space-x-2">
-                  {skills.map(skill => (
+                  {skills.map((skill) => (
                     <span
                       key={skill}
                       className="px-2 py-1 bg-blue-200 text-blue-800 rounded flex items-center space-x-1"
@@ -161,7 +163,7 @@ const JobPostForm = () => {
                       <span>{skill}</span>
                       <button
                         onClick={() =>
-                          setSkills(skills.filter(s => s !== skill))
+                          setSkills(skills.filter((s) => s !== skill))
                         }
                       >
                         &times;
@@ -169,7 +171,7 @@ const JobPostForm = () => {
                     </span>
                   ))}
                   <button
-                    onClick={() => setSkills([...skills, 'New Skill'])}
+                    onClick={() => setSkills([...skills, "New Skill"])}
                     className="px-2 py-1 bg-blue-600 text-white rounded"
                   >
                     + Add Skills

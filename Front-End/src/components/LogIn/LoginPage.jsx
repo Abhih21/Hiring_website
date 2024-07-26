@@ -1,40 +1,58 @@
-import { useState } from 'react';
-import axios from 'axios';
-import backgroundImage from '../../assets/Images/image 91 (1).png';
-import Logo from '../../assets/Images/CC logo.jpg';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import axios from "axios";
+import backgroundImage from "../../assets/Images/image 91 (1).png";
+import Logo from "../../assets/Images/CC logo.jpg";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
         "http://localhost:4000/api/v1/user/login",
-        { email, password }
+        { email, password },
+        { withCredentials: true }, // Ensure cookies are included in requests
       );
-      const { data } = response.data;
-      const { user, accessToken } = data;
-
-      console.log("frontend user:", user, accessToken)
-      if (accessToken && user) {
-        localStorage.setItem("accessToken", accessToken);
-        navigate('/dashboard');
-      } else {
-        setMessage("Token or user data not found in response");
-      }
+      console.log(response.data);
+      setMessage(response.data.message);
+      navigate("/dashboard");
     } catch (error) {
-      if (error.response && error.response.data) {
-        setMessage(error.response.data.message || "Login failed");
+      if (error.response) {
+        setMessage(error.response.data.message);
+      } else if (error.request) {
+        setMessage("No response from server. Please try again later.");
       } else {
-        setMessage("Login failed");
+        setMessage("An unexpected error occurred. Please try again.");
       }
-      console.error("Error:", error);
     }
+    // try {
+    //   const response = await axios.post(
+    //     "http://localhost:4000/api/v1/user/login",
+    //     { email, password }
+    //   );
+    //   const { data } = response.data;
+    //   const { user, accessToken } = data;
+
+    //   console.log("frontend user:", user, accessToken)
+    //   if (accessToken && user) {
+    //     localStorage.setItem("accessToken", accessToken);
+    //     navigate('/dashboard');
+    //   } else {
+    //     setMessage("Token or user data not found in response");
+    //   }
+    // } catch (error) {
+    //   if (error.response && error.response.data) {
+    //     setMessage(error.response.data.message || "Login failed");
+    //   } else {
+    //     setMessage("Login failed");
+    //   }
+    //   console.error("Error:", error);
+    // }
   };
 
   return (
@@ -64,7 +82,7 @@ const LoginPage = () => {
                   placeholder="Enter your email id"
                   required
                   value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="mt-1 block w-full px-3 py-5 border-b-2 border-gray-300 rounded-md shadow-none focus:outline-none focus:border-indigo-500 focus:ring-0 sm:text-lg"
                 />
               </div>
@@ -79,7 +97,7 @@ const LoginPage = () => {
                   placeholder="Enter your password"
                   required
                   value={password}
-                  onChange={e => setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="mt-1 block w-full px-3 py-5 border-b-2 border-gray-300 rounded-md shadow-none focus:outline-none focus:border-indigo-500 focus:ring-0 sm:text-lg"
                 />
               </div>
@@ -97,9 +115,9 @@ const LoginPage = () => {
             </button>
             <div className="mt-4 ml-14 mb-12">
               <p>
-                Don't have an account?{' '}
+                Don't have an account?{" "}
                 <span className="text-blue-600">
-                  <Link to={'/signup'}>SignUp</Link>
+                  <Link to={"/signup"}>SignUp</Link>
                 </span>
               </p>
             </div>

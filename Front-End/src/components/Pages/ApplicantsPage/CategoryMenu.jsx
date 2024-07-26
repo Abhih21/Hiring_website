@@ -1,17 +1,17 @@
-import  { useState } from 'react';
-import '../../../index.css'
+import { useState } from "react";
+import "../../../index.css";
 
 const categories = [
-  { name: 'Software Engineer' },
-  { name: 'DevOps',  },
-  { name: 'Developer', },
-  { name: 'Designer', },
-  { name: 'Full Stack Dev', },
-  { name: 'Android ', },
+  { name: "Software Engineer" },
+  { name: "DevOps" },
+  { name: "Developer" },
+  { name: "Designer" },
+  { name: "Full Stack Dev" },
+  { name: "Android " },
   // Add more categories and their corresponding components here
 ];
 
-const CategorySelector = ({categorie}) => {
+const CategorySelector = ({ categorie }) => {
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
 
   return (
@@ -22,7 +22,9 @@ const CategorySelector = ({categorie}) => {
             key={index}
             onClick={() => setSelectedCategory(category)}
             className={`px-4 py-2 whitespace-nowrap relative text-xl font-semibold  ${
-              selectedCategory.name === category.name ? 'text-blue-500' : 'text-black'
+              selectedCategory.name === category.name
+                ? "text-blue-500"
+                : "text-black"
             }`}
           >
             {category.name}
@@ -32,9 +34,7 @@ const CategorySelector = ({categorie}) => {
           </button>
         ))}
       </div>
-      <div className="mt-4">
-        {selectedCategory.component}
-      </div>
+      <div className="mt-4">{selectedCategory.component}</div>
     </div>
   );
 };

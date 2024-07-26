@@ -1,8 +1,16 @@
 import Chart from "react-apexcharts";
 
-function Barchart({ className, seriesData, width, height, tiletext, categories = [], colors }) {
+function Barchart({
+  className,
+  seriesData,
+  width,
+  height,
+  tiletext,
+  categories = [],
+  colors,
+}) {
   return (
-    <div className={className} >
+    <div className={className}>
       <Chart
         type="bar"
         width={width}
@@ -11,33 +19,32 @@ function Barchart({ className, seriesData, width, height, tiletext, categories =
         options={{
           title: {
             text: tiletext,
-            style: {fontSize: 30 },
+            style: { fontSize: 30 },
           },
           colors: colors,
           plotOptions: {
             bar: {
-              columnWidth: '45%',
+              columnWidth: "45%",
               distributed: true,
-            }
+            },
           },
           dataLabels: {
-            enabled: false
+            enabled: false,
           },
           legend: {
-            show: false
+            show: false,
           },
           theme: { mode: "light" },
           xaxis: {
-            categories:categories,
+            categories: categories,
             title: {
-              text:"Category",
-              style: { colors: "black", fontSize: 25, marginLeft: '20px' },
+              text: "Category",
+              style: { colors: "black", fontSize: 25, marginLeft: "20px" },
             },
           },
           yaxis: {
-           
             labels: {
-              style: { colors: "black", fontSize: 12, marginLeft: '20px' },
+              style: { colors: "black", fontSize: 12, marginLeft: "20px" },
             },
           },
         }}

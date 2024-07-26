@@ -1,15 +1,10 @@
-import React from 'react';
-import './Header.css';
-import { FaSearch, FaBell, FaCog } from 'react-icons/fa';
+import React from "react";
+import "./Header.css";
+import { FaSearch, FaBell, FaCog } from "react-icons/fa";
 
-import Logout from '../LogIn/Logout';
+import Logout from "../LogIn/Logout";
 
 const Header = () => {
-
- 
-
-  
-
   return (
     <header className="text-white bg-white flex navbar absolute left-72 items-center justify-between px-6 py-3 shadow-md">
       <div className="flex items-center">

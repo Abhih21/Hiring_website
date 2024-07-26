@@ -1,17 +1,17 @@
-import React from 'react';
-import ApexCharts from 'react-apexcharts';
+import React from "react";
+import ApexCharts from "react-apexcharts";
 
 const DonutChart = ({ series, labels, chartWidth }) => {
   const options = {
     chart: {
-      type: 'donut',
+      type: "donut",
     },
     dataLabels: {
       enabled: true, // Enable data labels
-    //   formatter: (val, opts) => {
-    //     // Format label as percentage
-    //     return `${val} (${opts.w.globals.labels[opts.seriesIndex]})`;
-    //   },
+      //   formatter: (val, opts) => {
+      //     // Format label as percentage
+      //     return `${val} (${opts.w.globals.labels[opts.seriesIndex]})`;
+      //   },
     },
     plotOptions: {
       pie: {
@@ -20,23 +20,23 @@ const DonutChart = ({ series, labels, chartWidth }) => {
             show: true,
             name: {
               show: true,
-              fontSize: '16px',
-              fontFamily: 'Helvetica, Arial',
-              color: '#333',
+              fontSize: "16px",
+              fontFamily: "Helvetica, Arial",
+              color: "#333",
               offsetY: 10,
             },
             value: {
               show: true,
-              fontSize: '14px',
-              fontFamily: 'Helvetica, Arial',
-              color: '#333',
+              fontSize: "14px",
+              fontFamily: "Helvetica, Arial",
+              color: "#333",
               offsetY: -20,
             },
             total: {
               show: true,
-              label: 'Total',
-              color: '#333',
-              fontSize: '20px',
+              label: "Total",
+              color: "#333",
+              fontSize: "20px",
             },
           },
         },
@@ -56,11 +56,11 @@ const DonutChart = ({ series, labels, chartWidth }) => {
       },
     ],
     legend: {
-      position: 'right',
+      position: "right",
       offsetY: 0,
       height: 230,
     },
-    labels: labels || [], 
+    labels: labels || [],
   };
 
   return (

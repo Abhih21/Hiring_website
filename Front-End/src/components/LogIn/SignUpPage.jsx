@@ -1,28 +1,28 @@
-import { useState } from 'react';
-import axios from 'axios';
-import { Navigate } from 'react-router-dom';
-import backgroundImage from '../../assets/Images/image 91 (1).png';
-import Logo from '../../assets/Images/CC logo.jpg';
+import { useState } from "react";
+import axios from "axios";
+import { Navigate } from "react-router-dom";
+import backgroundImage from "../../assets/Images/image 91 (1).png";
+import Logo from "../../assets/Images/CC logo.jpg";
 
 const SignUpPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
-  const [name, setName] = useState('');
-  const [message, setMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [message, setMessage] = useState("");
   const [redirect, setRedirect] = useState(false);
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'http://localhost:4000/api/v1/user/register',
+        "http://localhost:4000/api/v1/user/register",
         {
           email,
           password,
           username,
           name,
-        }
+        },
       );
       setMessage(response.data.message);
       setRedirect(true);
@@ -30,9 +30,9 @@ const SignUpPage = () => {
       if (error.response) {
         setMessage(error.response.data.message);
       } else if (error.request) {
-        setMessage('No response from server. Please try again later.');
+        setMessage("No response from server. Please try again later.");
       } else {
-        setMessage('An unexpected error occurred. Please try again.');
+        setMessage("An unexpected error occurred. Please try again.");
       }
     }
   };
@@ -66,7 +66,7 @@ const SignUpPage = () => {
                   placeholder="Enter your username"
                   required
                   value={username}
-                  onChange={e => setUsername(e.target.value)}
+                  onChange={(e) => setUsername(e.target.value)}
                   className="mt-1 block w-full px-3 py-5 border-b-2 border-gray-300 rounded-md shadow-none focus:outline-none focus:border-indigo-500 focus:ring-0 sm:text-lg"
                 />
               </div>
@@ -81,7 +81,7 @@ const SignUpPage = () => {
                   placeholder="Enter your email id"
                   required
                   value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="mt-1 block w-full px-3 py-5 border-b-2 border-gray-300 rounded-md shadow-none focus:outline-none focus:border-indigo-500 focus:ring-0 sm:text-lg"
                 />
               </div>
@@ -96,7 +96,7 @@ const SignUpPage = () => {
                   placeholder="Create password"
                   required
                   value={password}
-                  onChange={e => setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="mt-1 block w-full px-3 py-5 border-b-2 border-gray-300 rounded-md shadow-none focus:outline-none focus:border-indigo-500 focus:ring-0 sm:text-lg"
                 />
               </div>
@@ -111,7 +111,7 @@ const SignUpPage = () => {
                   placeholder="Enter your name"
                   required
                   value={name}
-                  onChange={e => setName(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                   className="mt-1 block w-full px-3 py-5 border-b-2 border-gray-300 rounded-md shadow-none focus:outline-none focus:border-indigo-500 focus:ring-0 sm:text-lg"
                 />
               </div>

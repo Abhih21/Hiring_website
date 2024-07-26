@@ -1,7 +1,6 @@
-import React from 'react';
-import { GoArrowLeft } from 'react-icons/go'; // Importing GoArrowLeft icon
-import HomeLayout from '../../../Layouts/HomeLayout';
-
+import React from "react";
+import { GoArrowLeft } from "react-icons/go"; // Importing GoArrowLeft icon
+import HomeLayout from "../../../Layouts/HomeLayout";
 
 const JobDescription = () => {
   return (
