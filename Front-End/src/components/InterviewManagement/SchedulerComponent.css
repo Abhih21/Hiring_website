@@ -1,0 +1,17 @@
+.rbc-event {
+  padding: 0.5em;
+}
+
+.rbc-event-label {
+  display: none;
+}
+
+.rbc-event-content {
+  white-space: normal;
+}
+
+/* Custom CSS to ensure events are fully visible */
+.rbc-time-content > * + * {
+  margin-top: 0;
+  padding: 0;
+}

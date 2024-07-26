@@ -1,12 +1,14 @@
-// src/components/Header.jsx
-import './Header.css'
-import { FaSearch, FaBell, FaCog, FaUserCircle } from 'react-icons/fa';
+import React from "react";
+import "./Header.css";
+import { FaSearch, FaBell, FaCog } from "react-icons/fa";
+
+import Logout from "../LogIn/Logout";
 
 const Header = () => {
   return (
-    <header className="navbar text-white bg-white flex  absolute left-72  items-center justify-between px-6 py-3 shadow-md">
+    <header className="text-white bg-white flex navbar absolute left-72 items-center justify-between px-6 py-3 shadow-md">
       <div className="flex items-center">
-        <div className="relative ">
+        <div className="relative">
           <input
             type="text"
             placeholder="Search for a Candidate, job or more"
@@ -15,16 +17,14 @@ const Header = () => {
           <FaSearch className="absolute left-3 top-2.5 text-gray-400" />
         </div>
       </div>
-      <div className="flex items-center space-x-4">
-       <div className='bg-gray-300 w-8 h-8 flex items-center justify-center rounded-full'>
-       <FaCog className="text-gray-600 hover:text-white cursor-pointer" />
-       </div>
-       <div className='bg-gray-300 w-8 h-8 flex items-center justify-center rounded-full'>
-       <FaBell className="text-gray-600 hover:text-white cursor-pointer" />
-       </div>
-       <FaUserCircle className="text-gray-600 hover:text-white cursor-pointer w-8 h-8" />
-     
-    
+      <div className="iconSection justify-end flex items-center space-x-4">
+        <div className="bg-gray-300 w-8 h-8 flex items-center justify-center rounded-full">
+          <FaCog className="text-gray-600 hover:text-white cursor-pointer" />
+        </div>
+        <div className="bg-gray-300 w-8 h-8 flex items-center justify-center rounded-full">
+          <FaBell className="text-gray-600 hover:text-white cursor-pointer" />
+        </div>
+        <Logout />
       </div>
     </header>
   );
