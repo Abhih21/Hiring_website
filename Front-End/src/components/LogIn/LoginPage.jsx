@@ -3,121 +3,141 @@ import axios from "axios";
 import backgroundImage from "../../assets/Images/image 91 (1).png";
 import Logo from "../../assets/Images/CC logo.jpg";
 import { Link, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import icons
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false); // State to handle loading
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setMessage(""); // Clear any previous messages
     try {
       const response = await axios.post(
         "http://localhost:4000/api/v1/user/login",
         { email, password },
-        { withCredentials: true }, // Ensure cookies are included in requests
+        { withCredentials: true },
       );
-      console.log(response.data);
       setMessage(response.data.message);
       navigate("/dashboard");
     } catch (error) {
       if (error.response) {
-        setMessage(error.response.data.message);
+        const contentType = error.response.headers["content-type"];
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+          setMessage(error.response.data.message);
+        } else {
+          setMessage("Invalid email or password.");
+        }
       } else if (error.request) {
         setMessage("No response from server. Please try again later.");
       } else {
         setMessage("An unexpected error occurred. Please try again.");
       }
+    } finally {
+      setLoading(false);
     }
-    // try {
-    //   const response = await axios.post(
-    //     "http://localhost:4000/api/v1/user/login",
-    //     { email, password }
-    //   );
-    //   const { data } = response.data;
-    //   const { user, accessToken } = data;
-
-    //   console.log("frontend user:", user, accessToken)
-    //   if (accessToken && user) {
-    //     localStorage.setItem("accessToken", accessToken);
-    //     navigate('/dashboard');
-    //   } else {
-    //     setMessage("Token or user data not found in response");
-    //   }
-    // } catch (error) {
-    //   if (error.response && error.response.data) {
-    //     setMessage(error.response.data.message || "Login failed");
-    //   } else {
-    //     setMessage("Login failed");
-    //   }
-    //   console.error("Error:", error);
-    // }
   };
 
   return (
     <>
-      <div className="min-h-screen flex bg-gray-100 ">
+      <div className="min-h-screen flex flex-col md:flex-row bg-gray-100">
         <img
-          className="hidden md:block relative w-screen "
+          className="hidden md:block md:w-1/2 h-auto"
           src={backgroundImage}
-          alt=""
+          alt="Background"
+          style={{
+            objectFit: "cover",
+            objectPosition: "center",
+            margin: "5rem 4rem",
+          }}
         />
-        <div className="bg-white mt-24 pt-8 left-2/4 absolute w-5/12 rounded-3xl shadow-lg ">
-          <div className="flex flex-col">
-            <img src={Logo} className="mb-10 ml-24 w-2/3" alt="" />
-            <h2 className="text-5xl font-bold mb-14 text-center">Log In</h2>
+        <div className="bg-white m-6 pt-8 flex flex-col justify-center md:w-1/2 lg:w-1/3 rounded-3xl shadow-lg">
+          <div className="flex flex-col items-center">
+            <img src={Logo} className="mb-10 w-80" alt="Logo" />
+            <h2 className="text-3xl md:text-5xl font-bold mb-14 text-center">
+              Log In
+            </h2>
             {message && <p className="text-center text-red-500">{message}</p>}
           </div>
-          <form onSubmit={handleSubmit}>
-            <div className="pl-12 pr-12">
-              <div className="mb-10">
-                <label htmlFor="email" className="block text-lg">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Enter your email id"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="mt-1 block w-full px-3 py-5 border-b-2 border-gray-300 rounded-md shadow-none focus:outline-none focus:border-indigo-500 focus:ring-0 sm:text-lg"
-                />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="password" className="block text-lg">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  placeholder="Enter your password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="mt-1 block w-full px-3 py-5 border-b-2 border-gray-300 rounded-md shadow-none focus:outline-none focus:border-indigo-500 focus:ring-0 sm:text-lg"
-                />
-              </div>
+          <form onSubmit={handleSubmit} className="px-6 md:px-12">
+            <div className="mb-6">
+              <label htmlFor="email" className="block text-lg">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="mt-1 block w-full px-3 py-3 border-b-2 border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-0 sm:text-lg"
+              />
             </div>
-            <div className="flex flex-row mb-16 mt-18 pl-8">
-              <input type="radio" className="ml-8" />
-              <span className="ml-2">Remember Me</span>
-              <div className="ml-56 text-blue-500">Forget Password?</div>
+            <div className="mb-6 relative">
+              <label htmlFor="password" className="block text-lg">
+                Password
+              </label>
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="mt-1 block w-full px-3 py-3 border-b-2 border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-0 sm:text-lg"
+              />
+              <span
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+            <div className="flex flex-row items-center mb-6">
+              <input type="checkbox" className="mr-2" />
+              <span className="mr-auto">Remember Me</span>
+              <Link to="/forgot-password" className="text-blue-500">
+                Forgot Password?
+              </Link>
             </div>
             <button
               type="submit"
-              className="w-10/12 ml-14 bg-blue-950 text-white text-2xl py-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="w-full bg-blue-950 text-white text-2xl py-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex items-center justify-center"
+              disabled={loading}
             >
-              Login
+              {loading ? (
+                <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+              ) : (
+                "Login"
+              )}
             </button>
-            <div className="mt-4 ml-14 mb-12">
+            <div className="mt-4 mb-4 text-center">
               <p>
                 Don't have an account?{" "}
                 <span className="text-blue-600">
-                  <Link to={"/signup"}>SignUp</Link>
+                  <Link to="/signup">Sign Up</Link>
                 </span>
               </p>
             </div>

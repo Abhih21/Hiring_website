@@ -2,7 +2,6 @@ import { Button } from "@headlessui/react";
 import { Link } from "react-router-dom";
 
 const ApplicantTable = () => {
-  // Example data
   const jobs = [
     {
       id: 1,
@@ -35,38 +34,36 @@ const ApplicantTable = () => {
   ];
 
   return (
-    <>
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border-gray-300 shadow-md rounded">
-          <thead className="bg-gray-200">
-            <tr>
-              <th className="text-left py-5 px-4">Job Title</th>
-              <th className="text-left py-4 px-4">Date to Fill</th>
-              <th className="text-left py-2 px-4">Openings</th>
-              <th className="text-left py-2 px-4">Applicants</th>
-              <th className="text-left py-2 px-9">Action</th>
+    <div className="overflow-x-auto bg-white shadow-md rounded-lg">
+      <table className="min-w-full border-collapse">
+        <thead className="bg-gray-200 text-gray-700">
+          <tr>
+            <th className="py-3 px-4 text-left">Job Title</th>
+            <th className="py-3 px-4 text-left">Date to Fill</th>
+            <th className="py-3 px-4 text-left">Openings</th>
+            <th className="py-3 px-4 text-left">Applicants</th>
+            <th className="py-3 px-4 text-left">Action</th>
+          </tr>
+        </thead>
+        <tbody className="bg-white text-gray-800">
+          {jobs.map((job) => (
+            <tr key={job.id} className="border-b border-gray-200">
+              <td className="py-4 px-4">{job.jobTitle}</td>
+              <td className="py-4 px-4">{job.dateToFill}</td>
+              <td className="py-4 px-4">{job.openings}</td>
+              <td className="py-4 px-4">{job.applicants}</td>
+              <td className="py-4 px-4">
+                <Link to="/applicants">
+                  <Button className="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg">
+                    View
+                  </Button>
+                </Link>
+              </td>
             </tr>
-          </thead>
-          <tbody className="">
-            {jobs.map((job) => (
-              <tr key={job.id} className="border-b border-gray-200">
-                <td className="py-7 px-4 ">{job.jobTitle}</td>
-                <td className="py-7 px-4">{job.dateToFill}</td>
-                <td className="py-7 px-4">{job.openings}</td>
-                <td className="py-7 px-4">{job.applicants}</td>
-                <td className="py-7 px-4">
-                  <Link to="/applicants">
-                    <Button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-9 rounded">
-                      View
-                    </Button>
-                  </Link>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

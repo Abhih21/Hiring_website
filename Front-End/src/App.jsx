@@ -18,6 +18,9 @@ import SchedulerComponent from "./components/InterviewManagement/SchedulerCompon
 import TimeToHire from "./components/Pages/TimeToHire/TimeToHire.jsx";
 import PerformanceAnalysis from "./components/Pages/PerformanceAnalysis.jsx/PerformanceAnalysis.jsx";
 import Calendar from "./components/InterviewManagement/Calendar.jsx";
+import InterviewList from "./components/InterviewManagement/InterviewList.jsx";
+import CalendarSidebar from "./components/InterviewManagement/CombinedScheduler.jsx";
+import CombinedScheduler from "./components/InterviewManagement/CombinedScheduler.jsx";
 
 function App() {
   return (
@@ -41,6 +44,8 @@ function App() {
       <Route path="/TimeToHire" element={<TimeToHire />} />
       <Route path="/performanceAnalysis" element={<PerformanceAnalysis />} />
       <Route path="/Calendar" element={<Calendar />} />
+      <Route path="/Interviewlist" element={<InterviewList />} />
+      <Route path="/CombinedScheduler" element={<CombinedScheduler />} />
     </Routes>
   );
 }

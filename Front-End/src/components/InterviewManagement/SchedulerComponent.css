@@ -1,17 +1,35 @@
-.rbc-event {
-  padding: 0.5em;
+.scheduler-container {
+  display: flex;
+  flex-direction: row;
 }
 
-.rbc-event-label {
-  display: none;
+.sidebar {
+  flex-shrink: 0;
 }
 
-.rbc-event-content {
-  white-space: normal;
+.modal {
+  padding: 20px;
+  max-width: 500px;
+  margin: auto;
+  position: relative;
+  background-color: #fff;
+  border-radius: 8px;
 }
 
-/* Custom CSS to ensure events are fully visible */
-.rbc-time-content > * + * {
-  margin-top: 0;
-  padding: 0;
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.add-event-button {
+  margin: 20px;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-event-button:hover {
+  background-color: #0056b3;
 }
