@@ -80,7 +80,7 @@ const CombinedScheduler = () => {
   return (
     <div className="scheduler-container">
       {/* Sidebar */}
-      <div className="sidebar w-80 bg-white shadow-lg p-4">
+      <div className="sidebar w-72 bg-white shadow-lg p-4">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold">
             {selectedDate.toLocaleString("default", { month: "long" })}{" "}
@@ -121,13 +121,13 @@ const CombinedScheduler = () => {
       </div>
 
       {/* Scheduler */}
-      <div className="flex-1">
+      <div className="flex-1 ">
         <BigCalendar
           localizer={localizer}
           events={events}
           startAccessor="start"
           endAccessor="end"
-          style={{ height: 700, width: "140%" }}
+          style={{ height: 700, width: "99%" }}
           views={["day", "week", "month"]}
           view={schedulerView}
           defaultView="month"

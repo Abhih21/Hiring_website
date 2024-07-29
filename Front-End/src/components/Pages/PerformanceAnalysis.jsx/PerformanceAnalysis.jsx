@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Chart from "./Chart";
 import LineChart from "./LineChart";
 import HomeLayout from "../../../Layouts/HomeLayout";
+import { GoArrowLeft } from "react-icons/go";
 
 const PerformanceAnalysis = () => {
   const [activeTab, setActiveTab] = useState("week");
@@ -101,14 +102,16 @@ const PerformanceAnalysis = () => {
   const lineChartData = getLineChartData();
 
   return (
-    <div className="flex ">
-      <HomeLayout />
-      <main className="flex-grow ml-80 mt-24">
-        <div className="p-4 border-b-2 border-blue-200 flex justify-between items-center">
-          <h1 className="text-lg font-semibold text-blue-800">
-            Performance Analysis
-          </h1>
-          <div className="space-x-4 bg-slate-100 rounded-md">
+    <HomeLayout>
+      <main className="flex-grow  px-4 lg:px-2">
+        <div className="p-4 border-b-2 border-blue-200 flex flex-col lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex flex-row gap-2">
+            <GoArrowLeft className="text-2xl mt-1 " />
+            <h1 className="text-2xl font-semibold text-blue-800 mb-4 lg:mb-0">
+              Performance Analysis
+            </h1>
+          </div>
+          <div className="space-x-4 bg-slate-100 rounded-md flex flex-wrap">
             <button
               className={`px-4 py-2 ${
                 activeTab === "week"
@@ -144,21 +147,21 @@ const PerformanceAnalysis = () => {
         <h1 className="text-2xl font-bold text-center mt-6">
           Sources Effectiveness
         </h1>
-        <div className="p-4 ">
+        <div className="p-8">
           <Chart series={pieChartData.series} labels={pieChartData.labels} />
         </div>
         <hr />
-        <h1 className="text-2xl font-bold text-center mt-20  ">
+        <h1 className="text-2xl font-bold text-center mt-20">
           Time To Hire Trend
         </h1>
-        <div className="p-4 w-5/6 ml-24  mb-20">
+        <div className="p-4  lg:w-5/6 mx-auto mb-20">
           <LineChart
             series={lineChartData.series}
             categories={lineChartData.categories}
           />
         </div>
       </main>
-    </div>
+    </HomeLayout>
   );
 };
 

@@ -13,6 +13,7 @@ const ScheduleInterview = () => {
   const [time, setTime] = useState("");
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
+  const [interviewer, setInterviewer] = useState("");
 
   const [activeStage, setActiveStage] = useState("Interview");
 
@@ -23,7 +24,13 @@ const ScheduleInterview = () => {
 
   const handleSchedule = () => {
     // Logic to handle scheduling the interview
-    console.log("Scheduled Interview:", { date, time, day, month });
+    console.log("Scheduled Interview:", {
+      date,
+      time,
+      day,
+      month,
+      interviewer,
+    });
   };
 
   const handleButtonClick = (stage, ref) => {
@@ -43,19 +50,18 @@ const ScheduleInterview = () => {
   };
 
   return (
-    <div className="flex">
-      <HomeLayout />
-      <section className="w-9/12 relative left-80 top-28 p-5 ml-4">
-        <div className="bg-white shadow-md rounded-lg p-8">
-          <h1 className="text-4xl font-bold mb-14 text-center">
+    <HomeLayout>
+      <section className=" sm:p-8">
+        <div className="bg-white shadow-md rounded-lg  sm:p-8">
+          <h1 className="text-2xl sm:text-4xl font-bold mb-6 sm:mb-14 text-center">
             Schedule Interview
           </h1>
-          <div className="flex justify-end space-x-4 mb-8 p-3 rounded-md items-center">
+          <div className="flex flex-wrap justify-end space-x-2 sm:space-x-4 mb-6 sm:mb-8 p-3 rounded-md items-center">
             <Link to="/applicantDetails">
               <button
                 ref={profileRef}
                 onClick={() => handleButtonClick("In-Review", profileRef)}
-                className={`px-4 py-2 rounded ${
+                className={`px-2 sm:px-4 py-1 sm:py-2 rounded ${
                   activeStage === "In-Review"
                     ? "bg-blue-500 text-white"
                     : "bg-gray-200"
@@ -68,7 +74,7 @@ const ScheduleInterview = () => {
               <button
                 ref={resumeRef}
                 onClick={() => handleButtonClick("Shortlisted", resumeRef)}
-                className={`px-4 py-2 rounded ${
+                className={`px-2 sm:px-4 py-1 sm:py-2 rounded ${
                   activeStage === "Shortlisted"
                     ? "bg-blue-500 text-white"
                     : "bg-gray-200"
@@ -81,7 +87,7 @@ const ScheduleInterview = () => {
               <button
                 ref={interviewRef}
                 onClick={() => handleButtonClick("Interview", interviewRef)}
-                className={`px-4 py-2 rounded ${
+                className={`px-2 sm:px-4 py-1 sm:py-2 rounded ${
                   activeStage === "Interview"
                     ? "bg-blue-500 text-white"
                     : "bg-gray-200"
@@ -94,7 +100,7 @@ const ScheduleInterview = () => {
               <button
                 ref={hiringRef}
                 onClick={() => handleButtonClick("Hired / Declined", hiringRef)}
-                className={`px-4 py-2 rounded ${
+                className={`px-2 sm:px-4 py-1 sm:py-2 rounded ${
                   activeStage === "Hired / Declined"
                     ? "bg-blue-500 text-white"
                     : "bg-gray-200"
@@ -105,7 +111,9 @@ const ScheduleInterview = () => {
             </Link>
           </div>
           <div className="mb-4">
-            <h2 className="text-xl font-semibold">Applicant Profile</h2>
+            <h2 className="text-lg sm:text-xl font-semibold">
+              Applicant Profile
+            </h2>
             <div className="mt-2">
               <p className="text-gray-700">
                 <strong>Name:</strong> {applicant.name}
@@ -120,7 +128,9 @@ const ScheduleInterview = () => {
           </div>
 
           <div className="mb-4">
-            <h2 className="text-xl font-semibold">Interview Details</h2>
+            <h2 className="text-lg sm:text-xl font-semibold">
+              Interview Details
+            </h2>
             <div className="mt-2">
               <label className="block text-gray-700 mb-1">Date:</label>
               <input
@@ -159,6 +169,18 @@ const ScheduleInterview = () => {
                 className="border rounded-lg p-2 w-full"
               />
             </div>
+            <div className="mt-2">
+              <label className="block text-gray-700 mb-1">
+                Assign Interviewer:
+              </label>
+              <input
+                type="text"
+                value={interviewer}
+                onChange={(e) => setInterviewer(e.target.value)}
+                placeholder="Enter interviewer's name"
+                className="border rounded-lg p-2 w-full"
+              />
+            </div>
           </div>
 
           <button
@@ -169,7 +191,7 @@ const ScheduleInterview = () => {
           </button>
         </div>
       </section>
-    </div>
+    </HomeLayout>
   );
 };
 

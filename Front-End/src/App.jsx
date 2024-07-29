@@ -10,17 +10,14 @@ import JobPostForm from "./components/Pages/Job_pages/JobPostForm.jsx";
 import JobDescription from "./components/Pages/Job_pages/JobDescription.jsx";
 import PrivateRoute from "../PrivateRoute.jsx";
 import Logout from "./components/LogIn/Logout.jsx";
-import SchedulerComponent from "./components/InterviewManagement/SchedulerComponent.jsx";
 import TimeToHire from "./components/Pages/TimeToHire/TimeToHire.jsx";
 import PerformanceAnalysis from "./components/Pages/PerformanceAnalysis.jsx/PerformanceAnalysis.jsx";
-import Calendar from "./components/InterviewManagement/Calendar.jsx";
-import InterviewList from "./components/InterviewManagement/InterviewList.jsx";
-import CalendarSidebar from "./components/InterviewManagement/CombinedScheduler.jsx";
-import CombinedScheduler from "./components/InterviewManagement/CombinedScheduler.jsx";
 import ReactDatePicker from "./components/Pages/Dashboard/ReactDatePicker.jsx";
 import ApplicationPage from "./components/Pages/ApplicantsPage/ApplicationPage.jsx";
 import ApplicantDetails from "./components/Pages/AplicantDetails/ApplicantDetails.jsx";
 import ApplicationTracking from "./components/Pages/ApplicantTracking/ApplicationTracking.jsx";
+import Calendar from "./components/Pages/InterviewManagement/Calendar.jsx";
+import InterviewList from "./components/Pages/InterviewManagement/InterviewList.jsx";
 
 function App() {
   return (
@@ -40,13 +37,15 @@ function App() {
       <Route path="/jobpage" element={<JobPage />} />
       <Route path="/JobPostForm" element={<JobPostForm />} />
       <Route path="/jobDescription" element={<JobDescription />} />
-      <Route path="/schedulerComponent" element={<SchedulerComponent />} />
       <Route path="/TimeToHire" element={<TimeToHire />} />
       <Route path="/performanceAnalysis" element={<PerformanceAnalysis />} />
       <Route path="/Calendar" element={<Calendar />} />
-      <Route path="/Interviewlist" element={<InterviewList />} />
-      <Route path="/CombinedScheduler" element={<CombinedScheduler />} />
       <Route path="/ReactDatePicker" element={<ReactDatePicker />} />
+      <Route
+        path="/interviewManagement/ScheduleInterview"
+        element={<InterviewList />}
+      />
+      <Route path="/interviewManagement/calendar" element={<Calendar />} />
     </Routes>
   );
 }

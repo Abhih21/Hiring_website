@@ -1,4 +1,5 @@
 import React from "react";
+import HomeLayout from "../../../Layouts/HomeLayout";
 
 function InterviewList() {
   const interviews = [
@@ -37,13 +38,26 @@ function InterviewList() {
       date: "14 July, 2024",
       location: "Silver Crystal Room, Nomad",
     },
+    {
+      id: 6,
+      name: "Jenny Wilson",
+      time: "10:00 AM - 11:00 AM",
+      date: "14 July, 2024",
+      location: "Silver Crystal Room, Nomad",
+    },
+    {
+      id: 7,
+      name: "Jenny Wilson",
+      time: "10:00 AM - 11:00 AM",
+      date: "14 July, 2024",
+      location: "Silver Crystal Room, Nomad",
+    },
   ];
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 p-4">
-      {/* Header with navigation */}
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-semibold">Candidates</h1>
+    <HomeLayout>
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="text-3xl font-semibold">Candidates</h1>
         <div className="flex items-center space-x-4">
           <button className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300">
             {"<"}
@@ -53,7 +67,7 @@ function InterviewList() {
             {">"}
           </button>
         </div>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center mt-14 space-x-4">
           <button className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
             Day
           </button>
@@ -100,7 +114,7 @@ function InterviewList() {
           </div>
         ))}
       </div>
-    </div>
+    </HomeLayout>
   );
 }
 

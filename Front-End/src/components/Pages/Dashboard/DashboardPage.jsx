@@ -31,7 +31,6 @@ const DashboardPage = () => {
     return `${formatDate(start)} - ${formatDate(end)}`;
   };
 
-  // Function to determine greeting based on current time
   const getGreeting = () => {
     const hours = new Date().getHours();
     if (hours < 12) return "Good Morning";
@@ -39,7 +38,6 @@ const DashboardPage = () => {
     return "Good Evening";
   };
 
-  //barchart
   const seriesData = [{ name: "Total Jobs", data: [8, 5, 2, 3] }];
   const categories = ["Developer", "Designer", "DevOps", "Marketing"];
   const colors = [
@@ -53,17 +51,15 @@ const DashboardPage = () => {
   ];
 
   const handlePeriodSelection = (period) => {
-    setSelectedPeriod(period);
+    // Implement period selection logic here
     console.log("Selected Period:", period);
-    // Handle period change logic (e.g., fetch new data based on the selected period)
   };
 
   return (
-    <>
-      <div className="flex h-full bg-gray-50">
-        <HomeLayout />
-        <section className="relative left-80">
-          <div className="mt-24 ml-8 flex flex-row gap-40 ">
+    <HomeLayout>
+      <div className="bg-gray-50">
+        <section className=" ml-8 flex flex-col gap-8">
+          <div className="flex justify-between">
             <div>
               <h1 className="font-medium text-2xl text-gray-800">
                 {getGreeting()}, Abhishek
@@ -73,12 +69,11 @@ const DashboardPage = () => {
                 {formatDateRange(selectedDates[0], selectedDates[1])}
               </p>
             </div>
-            <div className="mt-2  w-40  relative">
+            <div className="w-40 relative">
               <div
                 className="flex items-center border p-2 rounded-lg bg-gray-100 cursor-pointer"
                 onClick={() => setShowDatePicker(!showDatePicker)}
               >
-                {" "}
                 {selectedDates[0] && selectedDates[1] && (
                   <span className="mr-2 text-gray-800">
                     {formatDateRange(selectedDates[0], selectedDates[1])}
@@ -93,9 +88,9 @@ const DashboardPage = () => {
                 defaultDates={selectedDates}
               />
             </div>
-            <div className="mr-2">
+            <div>
               <Link to="/JobPostForm">
-                <button className="flex items-center px-4  z-1 mt-1 py-3 bg-blue-600 text-white font-semibold rounded-sm shadow-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
+                <button className="flex items-center px-4 py-3 bg-blue-600 text-white font-semibold rounded-sm shadow-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
                   <PlusIcon className="h-5 w-5 mr-2" />
                   Post a Job
                 </button>
@@ -103,75 +98,62 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          <section className="graphSection flex mt-14 ml-8">
-            <div className="">
-              <Barchart
-                className="flex ml-4 mt-12"
-                seriesData={seriesData}
-                categories={categories}
-                titleText="Application By Jobs"
-                width={585}
-                height={498}
-                colors={colors}
-              />
-            </div>
-            <section>
-              <div
-                className="bg-white p-8 rightSection ml-14 flex flex-col shadow-md"
-                style={{ width: "397px", height: "199px" }}
-              >
-                <div className="flex gap-44">
-                  <h1 className="font-normal text-2xl text-gray-800">
+          <section className="flex gap-8">
+            <Barchart
+              className="flex-1"
+              seriesData={seriesData}
+              categories={categories}
+              titleText="Application By Jobs"
+              width={585}
+              height={498}
+              colors={colors}
+            />
+            <div className="flex flex-col gap-4 w-1/3">
+              <div className="bg-white p-8 shadow-md">
+                <div className="flex justify-between items-center">
+                  <h1 className="text-2xl font-normal text-gray-800">
                     Job Open
                   </h1>
                   <div className="bg-yellow-200 h-7 w-8 flex justify-center items-center rounded-full">
                     <BsEye className="text-yellow-600" />
                   </div>
                 </div>
-                <div className="flex mt-14 ml-5 gap-14">
+                <div className="flex mt-6 gap-4 items-end">
                   <h1 className="text-5xl font-semibold text-gray-800">12</h1>
-                  <span className="text-2xl flex items-end text-gray-600">
-                    Job Opened
-                  </span>
+                  <span className="text-2xl text-gray-600">Job Opened</span>
                 </div>
               </div>
-              <div className="bg-white ml-14 mt-2 shadow-md">
-                <h1 className="text-2xl ml-4 pt-4 text-gray-800">
-                  Applicant Summary
-                </h1>
-                <div className="flex flex-row pl-6 gap-4 items-center">
-                  {" "}
-                  <h1 className="text-6xl pb-5 pl-4 text-gray-800">18 </h1>{" "}
-                  <span className="text-xl font-medium text-gray-600">
-                    Applicant
-                  </span>
+              <div className="bg-white p-8 shadow-md">
+                <h1 className="text-2xl text-gray-800">Applicant Summary</h1>
+                <div className="flex gap-4 items-center">
+                  <h1 className="text-6xl text-gray-800">18</h1>
+                  <span className="text-xl text-gray-600">Applicant</span>
                 </div>
                 <SemiDonutChart />
               </div>
-            </section>
+            </div>
           </section>
-          <div
-            className="container mt-8 p-6 shadow-xl ml-12 bg-white"
-            style={{ width: "95%" }}
-          >
-            <div className="flex flex-row justify-between ">
-              <h1 className="text-2xl font-bold flex justify-center items-center mb-4 text-gray-800">
+
+          <div className="mt-8 p-6 bg-white shadow-xl">
+            <div className="flex justify-between items-center">
+              <h1 className="text-2xl font-bold text-gray-800">
                 Job Applicant
               </h1>
               <DateSelection onSelect={handlePeriodSelection} />
             </div>
             <ApplicantTable currentPage={applicantCurrentPage} />
           </div>
-          <div className="flex justify-center items-center mb-10">
+
+          <div className="flex justify-center items-center mt-10">
             <Link to="/applicationPage">
-              <Button className="bg-blue-500 hover:bg-blue-600 mt-6 text-white text-xl py-2 px-6 rounded">
+              <Button className="bg-blue-500 hover:bg-blue-600 text-white text-xl py-2 px-6 rounded">
                 More
               </Button>
             </Link>
           </div>
         </section>
       </div>
-    </>
+    </HomeLayout>
   );
 };
 

@@ -15,7 +15,7 @@ function ApplicantTableData() {
 
   return (
     <>
-      <div className="container mx-auto px-4 py-8">
+      <div className="container px-4 py-10">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-4xl font-bold">Job Applicants</h1>
           <Link to="/jobpage">
@@ -39,11 +39,11 @@ function ApplicantTableData() {
             </button>
           ))}
         </div>
-        <div className="bg-white shadow rounded">
+        <div className="rounded">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   #
                 </th>
                 <th className="px-6 py-3 text-left text-lg font-medium text-gray-500 uppercase tracking-wider">
@@ -102,10 +102,10 @@ function ApplicantTableData() {
                 },
               ].map((applicant) => (
                 <tr key={applicant.id}>
-                  <td className="px-6 py-5 whitespace-nowrap">
+                  <td className="px-6 py-6 whitespace-nowrap">
                     {applicant.id}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-8 py-4 whitespace-nowrap">
                     {applicant.name}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -142,15 +142,6 @@ function ApplicantTableData() {
               ))}
             </tbody>
           </table>
-          <div className="bg-gray-50 px-6 py-4">
-            <nav className="flex justify-between">
-              <button className="px-4 py-2 bg-gray-200 rounded">
-                Previous
-              </button>
-              <span>Page 1 of 2</span>
-              <button className="px-4 py-2 bg-gray-200 rounded">Next</button>
-            </nav>
-          </div>
         </div>
       </div>
     </>

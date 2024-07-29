@@ -154,12 +154,11 @@ const TimeToHire = () => {
   const jobChartData = getJobChartData();
 
   return (
-    <div className="flex">
-      <HomeLayout />
-      <section className="relative left-80 top-24 w-4/6 justify-between items-center">
-        <div className="p-4 ml-20 border-b-2 border-blue-200 flex justify-between items-center">
-          <h1 className="text-lg font-semibold text-blue-800">Time To Hire</h1>
-          <div className="space-x-4 bg-slate-100 ml-4">
+    <HomeLayout>
+      <section className="min-h-screen p-4 bg-white">
+        <div className="border-b-2 border-blue-200 mb-8">
+          <h1 className="text-3xl font-semibold text-blue-800">Time To Hire</h1>
+          <div className="flex justify-center mt-4 mb-6 space-x-4 ">
             <button
               className={`px-4 py-2 ${
                 activeTab === "week"
@@ -181,7 +180,7 @@ const TimeToHire = () => {
               Month
             </button>
             <button
-              className={`px-6 py-2 ${
+              className={`px-4 py-2 ${
                 activeTab === "year"
                   ? "bg-blue-100 text-blue-800"
                   : "text-gray-600"
@@ -192,27 +191,30 @@ const TimeToHire = () => {
             </button>
           </div>
         </div>
-        <h1 className="mt-14 text-center text-xl font-semibold">
-          Time Per Stage
-        </h1>
-        <div className="ml-14 mt-8">
-          <JobChart
-            series={jobChartData.series}
-            categories={jobChartData.categories}
-          />
+
+        <div className="text-center mb-8">
+          <h2 className="text-xl font-semibold">Time Per Stage</h2>
+          <div className="mt-4">
+            <JobChart
+              series={jobChartData.series}
+              categories={jobChartData.categories}
+            />
+          </div>
         </div>
 
-        <h1 className="mt-14 text-center text-xl font-semibold">
-          Average Time per Stage in Hiring Pipeline
-        </h1>
-        <div className="ml-14">
-          <BarChart
-            series={chartData.series}
-            categories={chartData.categories}
-          />
+        <div className="text-center">
+          <h2 className="text-xl font-semibold">
+            Average Time per Stage in Hiring Pipeline
+          </h2>
+          <div className="mt-4">
+            <BarChart
+              series={chartData.series}
+              categories={chartData.categories}
+            />
+          </div>
         </div>
       </section>
-    </div>
+    </HomeLayout>
   );
 };
 

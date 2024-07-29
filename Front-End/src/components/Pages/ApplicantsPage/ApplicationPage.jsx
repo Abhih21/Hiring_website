@@ -9,49 +9,48 @@ import { Link } from "react-router-dom";
 const ApplicationPage = () => {
   return (
     <>
-      <div className="Container flex flex-row ">
-        <HomeLayout></HomeLayout>
-        <section className="relative left-80 top-24 w-9/12">
-          <div className="flex flex-row items-center   justify-between ">
-            <div className="flex justify-center items-center gap-2">
-              <GoArrowLeft className="h-8 w-8 " />
-              <h1 className="font-bold text-4xl">Applications</h1>
+      <HomeLayout>
+        <section className="relative w-full p-4">
+          <div className="flex flex-col md:flex-row items-center justify-between mb-4">
+            <div className="flex items-center gap-2 mb-4 md:mb-0">
+              <GoArrowLeft className="h-6 w-6 md:h-8 md:w-8" />
+              <h1 className="font-bold text-2xl md:text-4xl">Applications</h1>
             </div>
-            <div className="">
+            <div className="flex justify-end w-full md:w-auto">
               <Link to="/JobPostForm">
-                <button className="flex items-center px-7 py-3 bg-blue-800 text-white font-semibold shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 ml-4">
+                <button className="flex items-center px-4 py-2 md:px-7 md:py-3 bg-blue-800 text-white font-semibold shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">
                   <PlusIcon className="h-5 w-5 mr-2" />
                   Post a Job
                 </button>
               </Link>
             </div>
           </div>
-          <div className="category mt-7">
-            <CategoryMenu></CategoryMenu>
+          <div className="category mb-4">
+            <CategoryMenu />
           </div>
-          <div className="flex flex-row justify-between">
-            <h1 className="font-normal text-2xl">Total Applicants : 5 </h1>
-
-            <div className="flex items-center space-x-2">
-              <input
-                type="text"
-                // value={query}
-                // onChange={(e) => setQuery(e.target.value)}
-                className="p-2 px-8 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Search..."
-              />
-              <FaSearch className="absolute text-gray-400" />
-              <button
-                // onClick={handleSearch}
-                className="p-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600"
-              >
+          <div className="flex flex-col md:flex-row justify-between items-center mb-4">
+            <h1 className="font-normal text-lg md:text-2xl mb-4 md:mb-0">
+              Total Applicants: 5
+            </h1>
+            <div className="flex items-center space-x-2 w-full md:w-auto">
+              <div className="relative w-full md:w-auto">
+                <input
+                  type="text"
+                  className="w-full md:w-auto p-2 pl-10 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Search..."
+                />
+                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              </div>
+              <button className="p-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600">
                 Search
               </button>
             </div>
           </div>
-          <ApplicantsTable></ApplicantsTable>
+          <div className="overflow-x-auto">
+            <ApplicantsTable />
+          </div>
         </section>
-      </div>
+      </HomeLayout>
     </>
   );
 };

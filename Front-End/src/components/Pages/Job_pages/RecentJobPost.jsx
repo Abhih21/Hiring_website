@@ -3,9 +3,9 @@ import React from "react";
 
 const RecentJobPost = () => {
   return (
-    <div className="bg-white w-10/11 p-4 rounded shadow">
+    <div className="bg-white w-full  p-4 rounded shadow">
       <h2 className="text-xl py-3 font-semibold mb-4">Recent Job Post</h2>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-8 mb-10">
         {[1, 2, 3, 4].map((_, index) => (
           <div key={index} className="border p-4 rounded">
             <div className="flex items-center mb-2">
@@ -30,7 +30,7 @@ const RecentJobPost = () => {
                 Design
               </span>
             </div>
-            <p className="text-gray-600">
+            <p className="text-gray-600 mb-10">
               Pitch is looking for Customer Manager to join marketing team for
               working full time.
             </p>
