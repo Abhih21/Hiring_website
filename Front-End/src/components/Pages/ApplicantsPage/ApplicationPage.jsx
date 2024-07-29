@@ -4,8 +4,9 @@ import { GoArrowLeft } from "react-icons/go";
 import CategoryMenu from "./CategoryMenu";
 import { FaSearch } from "react-icons/fa";
 import ApplicantsTable from "./ApplicantsTable";
+import { Link } from "react-router-dom";
 
-const ApplicantsPage = () => {
+const ApplicationPage = () => {
   return (
     <>
       <div className="Container flex flex-row ">
@@ -17,10 +18,12 @@ const ApplicantsPage = () => {
               <h1 className="font-bold text-4xl">Applications</h1>
             </div>
             <div className="">
-              <button className="flex items-center px-7 py-3 bg-blue-800 text-white font-semibold shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 ml-4">
-                <PlusIcon className="h-5 w-5 mr-2" />
-                Post a Job
-              </button>
+              <Link to="/JobPostForm">
+                <button className="flex items-center px-7 py-3 bg-blue-800 text-white font-semibold shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 ml-4">
+                  <PlusIcon className="h-5 w-5 mr-2" />
+                  Post a Job
+                </button>
+              </Link>
             </div>
           </div>
           <div className="category mt-7">
@@ -53,4 +56,4 @@ const ApplicantsPage = () => {
   );
 };
 
-export default ApplicantsPage;
+export default ApplicationPage;

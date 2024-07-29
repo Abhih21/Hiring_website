@@ -34,7 +34,7 @@ const ApplicantTable = () => {
   ];
 
   return (
-    <div className="overflow-x-auto bg-white shadow-md rounded-lg">
+    <div className="overflow-x-auto bg-white shadow-md  rounded-lg">
       <table className="min-w-full border-collapse">
         <thead className="bg-gray-200 text-gray-700">
           <tr>
@@ -53,7 +53,7 @@ const ApplicantTable = () => {
               <td className="py-4 px-4">{job.openings}</td>
               <td className="py-4 px-4">{job.applicants}</td>
               <td className="py-4 px-4">
-                <Link to="/applicants">
+                <Link to="/applicationPage">
                   <Button className="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg">
                     View
                   </Button>

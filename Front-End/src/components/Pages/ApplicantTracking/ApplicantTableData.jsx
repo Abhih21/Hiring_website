@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function ApplicantTableData() {
   const [selected, setSelected] = useState("All"); // Default selected button
@@ -17,9 +18,11 @@ function ApplicantTableData() {
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-4xl font-bold">Job Applicants</h1>
-          <button className="px-6 py-3 flex items-end bg-blue-500 text-white rounded mr-8">
-            Recent Job Post
-          </button>
+          <Link to="/jobpage">
+            <button className="px-6 py-3 flex items-end bg-blue-500 text-white rounded mr-8">
+              Recent Job Post
+            </button>
+          </Link>
         </div>
         <div className="flex space-x-2 mb-3">
           {statuses.map((status) => (
@@ -129,9 +132,11 @@ function ApplicantTableData() {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-base text-center font-medium">
-                    <button className="text-indigo-600 hover:text-indigo-900">
-                      Details
-                    </button>
+                    <Link to="/applicantDetails">
+                      <button className="text-indigo-600 hover:text-indigo-900">
+                        Details
+                      </button>
+                    </Link>
                   </td>
                 </tr>
               ))}

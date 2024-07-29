@@ -7,9 +7,29 @@ import ApplicantTable from "./ApplicantTable.jsx";
 import DateSelection from "./DateSelection.jsx";
 import SemiDonutChart from "./SemiDonutChart.jsx";
 import { Button } from "@headlessui/react";
+import { Link } from "react-router-dom";
+import ReactDatePicker from "./ReactDatePicker.jsx";
+import { format } from "date-fns";
 
 const DashboardPage = () => {
   const [applicantCurrentPage, setApplicantCurrentPage] = useState(1);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [selectedDates, setSelectedDates] = useState([
+    new Date(),
+    new Date(new Date().setDate(new Date().getDate() + 1)), // Default to current date and next date
+  ]);
+
+  const formatDateRange = (start, end) => {
+    if (!start || !end) return "Start Date - End Date";
+
+    const formatDate = (date) => {
+      const month = format(date, "MMMM").slice(0, 3);
+      const day = format(date, "d");
+      return `${month} ${day}`;
+    };
+
+    return `${formatDate(start)} - ${formatDate(end)}`;
+  };
 
   // Function to determine greeting based on current time
   const getGreeting = () => {
@@ -48,22 +68,38 @@ const DashboardPage = () => {
               <h1 className="font-medium text-2xl text-gray-800">
                 {getGreeting()}, Abhishek
               </h1>
-              <p className="font-normal text-base text-gray-600">
-                Here is your job listings statistic report from July 19 - July
-                25
+              <p className="font-normal text-sm w-62 text-gray-600">
+                Here is your job listings statistic report from{" "}
+                {formatDateRange(selectedDates[0], selectedDates[1])}
               </p>
             </div>
-            <div className="mt-2">
-              <div className="flex items-center border p-2 rounded-lg bg-gray-100">
-                <span className="mr-2 text-gray-800">Jul 19 - Jul 25</span>
+            <div className="mt-2  w-40  relative">
+              <div
+                className="flex items-center border p-2 rounded-lg bg-gray-100 cursor-pointer"
+                onClick={() => setShowDatePicker(!showDatePicker)}
+              >
+                {" "}
+                {selectedDates[0] && selectedDates[1] && (
+                  <span className="mr-2 text-gray-800">
+                    {formatDateRange(selectedDates[0], selectedDates[1])}
+                  </span>
+                )}
                 <CalendarIcon className="h-5 w-5 text-blue-500" />
               </div>
+              <ReactDatePicker
+                show={showDatePicker}
+                onClose={() => setShowDatePicker(false)}
+                onDateChange={(dates) => setSelectedDates(dates)}
+                defaultDates={selectedDates}
+              />
             </div>
-            <div>
-              <button className="flex items-center px-7 z-1 mt-1 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 ml-4">
-                <PlusIcon className="h-5 w-5 mr-2" />
-                Post a Job
-              </button>
+            <div className="mr-2">
+              <Link to="/JobPostForm">
+                <button className="flex items-center px-4  z-1 mt-1 py-3 bg-blue-600 text-white font-semibold rounded-sm shadow-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
+                  <PlusIcon className="h-5 w-5 mr-2" />
+                  Post a Job
+                </button>
+              </Link>
             </div>
           </div>
 
@@ -116,7 +152,7 @@ const DashboardPage = () => {
           </section>
           <div
             className="container mt-8 p-6 shadow-xl ml-12 bg-white"
-            style={{ width: "93%" }}
+            style={{ width: "95%" }}
           >
             <div className="flex flex-row justify-between ">
               <h1 className="text-2xl font-bold flex justify-center items-center mb-4 text-gray-800">
@@ -127,9 +163,11 @@ const DashboardPage = () => {
             <ApplicantTable currentPage={applicantCurrentPage} />
           </div>
           <div className="flex justify-center items-center mb-10">
-            <Button className="bg-blue-500 hover:bg-blue-600 mt-6 text-white py-2 px-9 rounded">
-              More
-            </Button>
+            <Link to="/applicationPage">
+              <Button className="bg-blue-500 hover:bg-blue-600 mt-6 text-white text-xl py-2 px-6 rounded">
+                More
+              </Button>
+            </Link>
           </div>
         </section>
       </div>

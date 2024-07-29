@@ -1,32 +1,45 @@
 import { GoArrowLeft, GoChevronDown } from "react-icons/go";
 import HomeLayout from "../../../Layouts/HomeLayout";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
-function DetailsApplicant() {
-  const [stage, setStage] = useState("Interview");
+function ApplicantDetails() {
+  const location = useLocation();
+  const [stage, setStage] = useState("Profile");
+
+  useEffect(() => {
+    // Determine the initial stage based on the URL
+    if (location.pathname.includes("applicantDetails")) {
+      setStage("Profile");
+    } else if (location.pathname.includes("Applicantresume")) {
+      setStage("Resume");
+    } else if (location.pathname.includes("scheduleinterview")) {
+      setStage("Interview");
+    } else if (location.pathname.includes("InterviewScheduled")) {
+      setStage("Hired / Declined");
+    }
+  }, [location.pathname]);
 
   return (
     <>
       <div className="flex">
-        <HomeLayout></HomeLayout>
+        <HomeLayout />
         <section>
-          <div className="p-4 relative  left-80 top-20">
-            <div className="flex flex-row items-center   justify-between ">
+          <div className="p-4 relative lg:left-80 lg:top-20">
+            <div className="flex flex-col lg:flex-row items-center justify-between">
               <div className="flex justify-center items-center gap-2">
-                <GoArrowLeft className="h-8 w-8 " />
+                <GoArrowLeft className="h-8 w-8" />
                 <h1 className="font-bold text-4xl">Application</h1>
               </div>
-              <div className="">
+              <div>
                 <button className="flex items-center px-7 py-3 bg-blue-800 text-white font-semibold shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 ml-4">
                   <GoChevronDown />
                   More Action
                 </button>
               </div>
             </div>
-            <div className="max-w-5xl mt-12 mx-auto   p-3 rounded-lg shadow-md">
-              <div className="flex gap-20 justify-between">
-                {/* < CategoryMenu /> */}
+            <div className="max-w-5xl mt-12 mx-auto p-3 rounded-lg shadow-md">
+              <div className="flex flex-col lg:flex-row gap-4">
                 <div className="flex items-center mb-6">
                   <img
                     src="https://via.placeholder.com/150"
@@ -49,46 +62,58 @@ function DetailsApplicant() {
                     </p>
                   </div>
                 </div>
-                <div className="">
-                  <div className="flex mt-20 bg-slate-100 p-3 rounded-md items-center space-x-4 mb-8">
-                    <Link to="/detailsapplicant">
-                      <button
-                        onClick={() => setStage("In-Review")}
-                        className={`px-4 py-2 rounded ${stage === "In-Review" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-                      >
-                        Profile
-                      </button>
-                    </Link>
-                    <Link to="/Applicantresume">
-                      <button
-                        onClick={() => setStage("Shortlisted")}
-                        className={`px-4 py-2 rounded ${stage === "Shortlisted" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-                      >
-                        Resume
-                      </button>
-                    </Link>
-                    <Link to="/scheduleinterview">
-                      <button
-                        onClick={() => setStage("Interview")}
-                        className={`px-4 py-2 rounded ${stage === "Interview" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-                      >
-                        Schedule Interview
-                      </button>
-                    </Link>
-                    <Link to="/InterviewScheduled">
-                      {" "}
-                      <button
-                        onClick={() => setStage("Hired / Declined")}
-                        className={`px-4 py-2 rounded ${stage === "Hired / Declined" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-                      >
-                        Hiring Process
-                      </button>
-                    </Link>
-                  </div>
+                <div className="flex flex-col  lg:flex-row gap-4 justify-end items-end ml-6 p-3 rounded-md ">
+                  <Link to="/applicantDetails">
+                    <button
+                      onClick={() => setStage("Profile")}
+                      className={`px-4 py-2 rounded ${
+                        stage === "Profile"
+                          ? "bg-blue-500 text-white"
+                          : "bg-gray-200"
+                      }`}
+                    >
+                      Profile
+                    </button>
+                  </Link>
+                  <Link to="/Applicantresume">
+                    <button
+                      onClick={() => setStage("Resume")}
+                      className={`px-4 py-2 rounded ${
+                        stage === "Resume"
+                          ? "bg-blue-500 text-white"
+                          : "bg-gray-200"
+                      }`}
+                    >
+                      Resume
+                    </button>
+                  </Link>
+                  <Link to="/scheduleinterview">
+                    <button
+                      onClick={() => setStage("Interview")}
+                      className={`px-4 py-2 rounded ${
+                        stage === "Interview"
+                          ? "bg-blue-500 text-white"
+                          : "bg-gray-200"
+                      }`}
+                    >
+                      Schedule Interview
+                    </button>
+                  </Link>
+                  <Link to="/InterviewScheduled">
+                    <button
+                      onClick={() => setStage("Hired / Declined")}
+                      className={`px-4 py-2 rounded ${
+                        stage === "Hired / Declined"
+                          ? "bg-blue-500 text-white"
+                          : "bg-gray-200"
+                      }`}
+                    >
+                      Status
+                    </button>
+                  </Link>
                 </div>
               </div>
               <hr />
-
               <div className="mb-6 mt-4">
                 <h2 className="text-xl font-semibold mb-2">
                   Professional Summary
@@ -107,7 +132,6 @@ function DetailsApplicant() {
                   like Aldus PageMaker including versions of Lorem Ipsum.
                 </p>
               </div>
-
               <div className="mb-6">
                 <h2 className="text-xl font-semibold mb-2">Work History</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -237,4 +261,4 @@ function DetailsApplicant() {
   );
 }
 
-export default DetailsApplicant;
+export default ApplicantDetails;

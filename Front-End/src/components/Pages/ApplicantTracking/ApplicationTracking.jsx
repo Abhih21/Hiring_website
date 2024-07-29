@@ -3,9 +3,14 @@ import ApplicantTableData from "./ApplicantTableData";
 import Barchart from "../Charts/Barchart";
 import PieChart from "../Charts/PieChart";
 import DonutChart from "../Charts/DonutChart";
+import ReactDatePicker from "../Dashboard/ReactDatePicker";
+import { useState } from "react";
+import { CalendarIcon } from "@heroicons/react/solid";
 
-const ApplicantTracking = () => {
-  //donut
+const ApplicationTracking = () => {
+  const [datePickerVisible, setDatePickerVisible] = useState(false);
+
+  // Donut chart
   const series = [44, 55, 13, 33];
   const labels = ["abc", "bcd"];
 
@@ -19,7 +24,7 @@ const ApplicantTracking = () => {
     "Job Sites",
   ];
 
-  //barchartData
+  // Bar chart data
   const seriesData = [{ name: "Total Jobs", data: [8, 4, 15, 5, 2, 3, 0] }];
   const categories = [
     "Software Engineer",
@@ -40,15 +45,20 @@ const ApplicantTracking = () => {
     "#20B2AA",
   ];
 
+  const handleDateChange = (dates) => {
+    // Handle date change
+    console.log(dates);
+  };
+
   return (
     <>
-      <div className="flex ">
-        <HomeLayout></HomeLayout>
+      <div className="flex">
+        <HomeLayout />
         <section className="relative left-80 top-20">
-          <div className="container mx-auto px-4 py-8 ">
+          <div className="container  px-14 py-8">
             <h1 className="text-2xl font-bold mb-6">Application Tracking</h1>
             <div className="">
-              <div className="flex justify-between  mb-8">
+              <div className="flex justify-between mb-8">
                 <div className="flex space-x-4">
                   <button className="px-4 py-2 bg-gray-200 rounded">Day</button>
                   <button className="px-4 py-2 bg-blue-500 text-white rounded">
@@ -60,9 +70,17 @@ const ApplicantTracking = () => {
                 </div>
                 <div className="flex items-center border p-1 space-x-2">
                   <span>Jul 19 - Jul 25</span>
-                  <button className="px-4 py-2 bg-gray-200 rounded">
-                    &#x1F4C5;
+                  <button
+                    onClick={() => setDatePickerVisible(!datePickerVisible)}
+                    className="px-4 py-2 bg-gray-200 rounded"
+                  >
+                    <CalendarIcon className="h-5 w-5 text-blue-500" />
                   </button>
+                  <ReactDatePicker
+                    show={datePickerVisible}
+                    onClose={() => setDatePickerVisible(false)}
+                    onDateChange={handleDateChange}
+                  />
                 </div>
               </div>
             </div>
@@ -101,7 +119,7 @@ const ApplicantTracking = () => {
             </div>
             <div className="bg-white p-4 shadow mb-64 rounded">
               <h2 className="text-xl font-bold mb-4">Application By Jobs</h2>
-              <div className="w-full h-64 ">
+              <div className="w-full h-64">
                 <Barchart
                   className=""
                   seriesData={seriesData}
@@ -115,7 +133,7 @@ const ApplicantTracking = () => {
             </div>
           </div>
           <div className="">
-            <ApplicantTableData></ApplicantTableData>
+            <ApplicantTableData />
           </div>
         </section>
       </div>
@@ -123,4 +141,4 @@ const ApplicantTracking = () => {
   );
 };
 
-export default ApplicantTracking;
+export default ApplicationTracking;

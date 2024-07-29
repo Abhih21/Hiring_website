@@ -3,6 +3,7 @@ import React from "react";
 import Stats from "./Jobstatus";
 import RecentJobPosts from "./RecentJobPost";
 import HomeLayout from "../../../Layouts/HomeLayout";
+import { Link } from "react-router-dom";
 
 const JobPage = () => {
   return (
@@ -16,9 +17,11 @@ const JobPage = () => {
                 Here is Job Applications
               </h1>
               <div className="flex space-x-4">
-                <button className="px-4 py-2 bg-blue-600 text-white rounded">
-                  + Post a job
-                </button>
+                <Link to="/JobPostForm">
+                  <button className="px-4 py-2 bg-blue-600 text-white rounded">
+                    + Post a job
+                  </button>
+                </Link>
                 <input type="date" className="border rounded p-2" />
               </div>
             </div>

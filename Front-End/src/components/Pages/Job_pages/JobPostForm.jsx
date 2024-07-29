@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import HomeLayout from "../../../Layouts/HomeLayout";
 import { GoArrowLeft } from "react-icons/go";
+import { Link } from "react-router-dom";
 
 const JobPostForm = () => {
   const [jobTitle, setJobTitle] = useState("");
@@ -22,10 +23,11 @@ const JobPostForm = () => {
             <div className="mb-6 ">
               <div className="flex gap-3">
                 <GoArrowLeft className="text-2xl mt-3" />
-                <button className="text-gray-600 mb-4 text-4xl ">
-                  {" "}
-                  Post a Job
-                </button>
+                <Link to="">
+                  <button className="text-gray-600 mb-4 text-4xl ">
+                    Post a Job
+                  </button>
+                </Link>
               </div>
               <div className="flex mt-4 space-x-4 w-9/12">
                 <button className="px-4 py-2 text-blue-600 border-b-2 border-blue-600 text-xl">

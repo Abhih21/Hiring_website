@@ -1,24 +1,38 @@
 import { GoArrowLeft, GoChevronDown } from "react-icons/go";
 import HomeLayout from "../../../Layouts/HomeLayout";
-import CategoryMenu from "./CategoryMenu";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import CategoryMenu from "../ApplicantsPage/CategoryMenu";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 function ApplicantResume() {
+  const location = useLocation();
   const [stage, setStage] = useState("Interview");
+
+  useEffect(() => {
+    // Set the initial stage based on the current path
+    if (location.pathname === "/detailsapplicant") {
+      setStage("In-Review");
+    } else if (location.pathname === "/Applicantresume") {
+      setStage("Shortlisted");
+    } else if (location.pathname === "/scheduleinterview") {
+      setStage("Interview");
+    } else if (location.pathname === "/InterviewScheduled") {
+      setStage("Hired / Declined");
+    }
+  }, [location.pathname]);
 
   return (
     <>
       <div className="flex">
-        <HomeLayout></HomeLayout>
+        <HomeLayout />
         <section>
-          <div className="p-4 relative  left-80 top-20">
-            <div className="flex flex-row items-center   justify-between ">
+          <div className="p-4 relative left-80 top-20">
+            <div className="flex flex-row items-center justify-between">
               <div className="flex justify-center items-center gap-2">
-                <GoArrowLeft className="h-8 w-8 " />
+                <GoArrowLeft className="h-8 w-8" />
                 <h1 className="font-bold text-4xl">Application</h1>
               </div>
-              <div className="">
+              <div>
                 <button className="flex items-center px-7 py-3 bg-blue-800 text-white font-semibold shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 ml-4">
                   <GoChevronDown />
                   More Action
@@ -28,7 +42,7 @@ function ApplicantResume() {
             <hr className="mt-8" />
 
             <div className="flex gap-20 justify-between">
-              {/* < CategoryMenu /> */}
+              {/* <CategoryMenu /> */}
               <div className="flex items-center mt-8">
                 <img
                   src="https://via.placeholder.com/150"
@@ -51,12 +65,16 @@ function ApplicantResume() {
                   </p>
                 </div>
               </div>
-              <div className="">
-                <div className="flex mt-28 mr-8 bg-slate-100 p-3 rounded-md items-center space-x-4 ">
-                  <Link to="/detailsapplicant">
+              <div>
+                <div className="flex mt-28 mr-8 - p-3 rounded-md items-center space-x-4">
+                  <Link to="/applicantDetails">
                     <button
                       onClick={() => setStage("In-Review")}
-                      className={`px-4 py-2 rounded ${stage === "In-Review" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
+                      className={`px-4 py-2 rounded ${
+                        stage === "In-Review"
+                          ? "bg-blue-500 text-white"
+                          : "bg-gray-200"
+                      }`}
                     >
                       Profile
                     </button>
@@ -64,7 +82,11 @@ function ApplicantResume() {
                   <Link to="/Applicantresume">
                     <button
                       onClick={() => setStage("Shortlisted")}
-                      className={`px-4 py-2 rounded ${stage === "Shortlisted" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
+                      className={`px-4 py-2 rounded ${
+                        stage === "Shortlisted"
+                          ? "bg-blue-500 text-white"
+                          : "bg-gray-200"
+                      }`}
                     >
                       Resume
                     </button>
@@ -72,36 +94,36 @@ function ApplicantResume() {
                   <Link to="/scheduleinterview">
                     <button
                       onClick={() => setStage("Interview")}
-                      className={`px-4 py-2 rounded ${stage === "Interview" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
+                      className={`px-4 py-2 rounded ${
+                        stage === "Interview"
+                          ? "bg-blue-500 text-white"
+                          : "bg-gray-200"
+                      }`}
                     >
                       Schedule Interview
                     </button>
                   </Link>
                   <Link to="/InterviewScheduled">
-                    {" "}
                     <button
                       onClick={() => setStage("Hired / Declined")}
-                      className={`px-4 py-2 rounded ${stage === "Hired / Declined" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
+                      className={`px-4 py-2 rounded ${
+                        stage === "Hired / Declined"
+                          ? "bg-blue-500 text-white"
+                          : "bg-gray-200"
+                      }`}
                     >
-                      Hiring Process
+                      Status
                     </button>
                   </Link>
                 </div>
               </div>
             </div>
-            <div className="max-w-5xl   p-6">
-              {/* < CategoryMenu /> */}
-              {/* <div className="flex bg-slate-200 justify-end  rounded-md py-2 ml-96  mr-4 space-x-4 ">
-                    <button onClick={() => setStage('In-Review')} className={`px-6 py-2 rounded ${stage === 'In-Review' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>In-Review</button>
-                    <button onClick={() => setStage('Shortlisted')} className={`px-6 py-2 rounded ${stage === 'Shortlisted' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Shortlisted</button>
-                    <button onClick={() => setStage('Interview')} className={`px-6 py-2 rounded ${stage === 'Interview' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Interview</button>
-                    <button onClick={() => setStage('Hired / Declined')} className={`px-6 py-2 rounded ${stage === 'Hired / Declined' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Hired / Declined</button>
-                </div> */}
-
+            <div className="max-w-5xl p-6">
+              {/* <CategoryMenu /> */}
               <div>
-                <div className="container  mt-1 mb-4">
-                  <div className="bg-white shadow-md  border rounded-lg p-14">
-                    <div className="flex ml-6 mb-4  items-center text-center">
+                <div className="container mt-1 mb-4">
+                  <div className="bg-white shadow-md border rounded-lg p-14">
+                    <div className="flex ml-6 mb-4 items-center text-center">
                       <img
                         src="https://via.placeholder.com/150"
                         alt="Profile"
