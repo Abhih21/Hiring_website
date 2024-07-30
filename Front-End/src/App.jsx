@@ -1,14 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import LoginPage from "./components/LogIn/LoginPage";
 import SignUpPage from "./components/LogIn/SignUpPage";
-import Dashboard from "./components/Pages/Dashboard/DashboardPage.jsx";
 import ApplicantResume from "./components/Pages/AplicantDetails/ApplicantResume.jsx";
 import ScheduleInterview from "./components/Pages/AplicantDetails/ScheduleInterview.jsx";
 import InterviewScheduled from "./components/Pages/AplicantDetails/InterviewScheduled.jsx";
 import JobPage from "./components/Pages/Job_pages/JobPage.jsx";
 import JobPostForm from "./components/Pages/Job_pages/JobPostForm.jsx";
 import JobDescription from "./components/Pages/Job_pages/JobDescription.jsx";
-import PrivateRoute from "../PrivateRoute.jsx";
 import Logout from "./components/LogIn/Logout.jsx";
 import TimeToHire from "./components/Pages/TimeToHire/TimeToHire.jsx";
 import PerformanceAnalysis from "./components/Pages/PerformanceAnalysis.jsx/PerformanceAnalysis.jsx";
@@ -18,6 +16,7 @@ import ApplicantDetails from "./components/Pages/AplicantDetails/ApplicantDetail
 import ApplicationTracking from "./components/Pages/ApplicantTracking/ApplicationTracking.jsx";
 import Calendar from "./components/Pages/InterviewManagement/Calendar.jsx";
 import InterviewList from "./components/Pages/InterviewManagement/InterviewList.jsx";
+import DashboardPage from "../src/components/Pages/Dashboard/DashboardPage.jsx";
 
 function App() {
   return (
@@ -26,7 +25,7 @@ function App() {
       <Route path="/loginPage" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/logout" element={<Logout />} />
-      <Route path="/dashboard" element={<PrivateRoute element={Dashboard} />} />
+      <Route path="/dashboardpage" element={<DashboardPage />} />
       <Route path="/applicationPage" element={<ApplicationPage />} />
       <Route path="/applicantDetails" element={<ApplicantDetails />} />
       <Route path="/Applicantresume" element={<ApplicantResume />} />

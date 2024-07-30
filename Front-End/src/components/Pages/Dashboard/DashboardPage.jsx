@@ -10,6 +10,7 @@ import { Button } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import ReactDatePicker from "./ReactDatePicker.jsx";
 import { format } from "date-fns";
+import { useAuth } from "../../../store/Auth.jsx";
 
 const DashboardPage = () => {
   const [applicantCurrentPage, setApplicantCurrentPage] = useState(1);
@@ -18,6 +19,8 @@ const DashboardPage = () => {
     new Date(),
     new Date(new Date().setDate(new Date().getDate() + 1)), // Default to current date and next date
   ]);
+
+  const { userDetails } = useAuth();
 
   const formatDateRange = (start, end) => {
     if (!start || !end) return "Start Date - End Date";
@@ -55,6 +58,10 @@ const DashboardPage = () => {
     console.log("Selected Period:", period);
   };
 
+  if (!userDetails) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <HomeLayout>
       <div className="bg-gray-50">
@@ -62,7 +69,7 @@ const DashboardPage = () => {
           <div className="flex justify-between">
             <div>
               <h1 className="font-medium text-2xl text-gray-800">
-                {getGreeting()}, Abhishek
+                {getGreeting()}, {userDetails.name}
               </h1>
               <p className="font-normal text-sm w-62 text-gray-600">
                 Here is your job listings statistic report from{" "}

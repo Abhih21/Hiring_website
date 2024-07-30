@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../store/Auth";
 
 const Logout = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -11,7 +12,7 @@ const Logout = () => {
     setIsVisible(!isVisible);
   };
 
-  // const token = localStorage.getItem('accessToken');
+  const { removeTokenLS, userDetails } = useAuth();
 
   const handleLogout = async () => {
     try {
@@ -22,9 +23,7 @@ const Logout = () => {
           {},
           { withCredentials: true },
         );
-        // localStorage.removeItem("user");
-        // localStorage.removeItem("accessToken");
-        // localStorage.removeItem("refreshToken");
+        removeTokenLS();
         navigate("/loginPage");
       }
     } catch (error) {
@@ -40,9 +39,14 @@ const Logout = () => {
       >
         <FaUserCircle className="text-gray-600 hover:text-white cursor-pointer w-8 h-8" />
       </button>
+
       {isVisible && (
-        <div className="absolute top-full right-0 mt-2 z-1 bg-black shadow-lg rounded-lg p-4 w-60">
+        <div className="absolute top-full right-0 mt-2 z-1 bg-black shadow-lg rounded-lg p-4 w-80 h-52">
           <div className="flex flex-col items-center">
+            <div className="mt-10 ml-4">
+              <p className="text-lg">{userDetails.name}</p>
+              <p className="text-base">{userDetails.email}</p>
+            </div>
             <button
               onClick={handleLogout}
               className="mt-4 bg-red-500 text-white p-2 rounded-lg hover:bg-red-600"

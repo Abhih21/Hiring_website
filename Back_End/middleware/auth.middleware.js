@@ -7,11 +7,14 @@ export const verifyJWT = asyncHandler(async (req, res, next) => {
   try {
     // Extract token from cookies
     const tokenFromCookie = req.cookies?.accessToken;
-    const tokenFromHeader = req.header('Authorization')?.replace('Bearer ', '').trim();
+    const tokenFromHeader = req
+      .header('Authorization')
+      ?.replace('Bearer ', '')
+      .trim();
 
-    // Log the tokens for debugging
-    console.log('Token from cookie:', tokenFromCookie);
-    console.log('Token from header:', tokenFromHeader);
+    // // Log the tokens for debugging
+    // console.log('Token from cookie:', tokenFromCookie);
+    // console.log('Token from header:', tokenFromHeader);
 
     // Determine the token to use
     const token = tokenFromCookie || tokenFromHeader;
@@ -25,10 +28,12 @@ export const verifyJWT = asyncHandler(async (req, res, next) => {
     const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
     // Log the decoded token for debugging
-    console.log('Decoded JWT token:', decodedToken);
+    // console.log('Decoded JWT token:', decodedToken);
 
     // Find the user associated with the token
-    const user = await User.findById(decodedToken?._id).select('-password -refreshToken');
+    const user = await User.findById(decodedToken?._id).select(
+      '-password -refreshToken'
+    );
 
     if (!user) {
       throw new ApiError(401, 'Invalid Access Token');

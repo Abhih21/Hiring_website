@@ -47,7 +47,9 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   // const createdUser = await User.findById(user._id).select("-password", "-refreshToken");
-  const createdUser = await User.findById(user._id).select('-password');
+  const createdUser = await User.findById(user._id).select(
+    '-password -refreshToken'
+  );
 
   if (!createdUser) {
     throw new ApiError(500, 'Something went wrong while registering the user');
@@ -116,7 +118,7 @@ const logoutUser = asyncHandler(async (req, res) => {
   await User.findByIdAndUpdate(
     req.user._id,
     {
-      $set: { refreshToken: 1 },
+      $set: { refreshToken: undefined },
     },
     {
       new: true,

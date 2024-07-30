@@ -18,7 +18,7 @@ const Sidebar = () => {
   const currentPath = location.pathname;
 
   const links = [
-    { name: "Dashboard", path: "/dashboard", icon: <FaHome /> },
+    { name: "Dashboard", path: "/dashboardPage", icon: <FaHome /> },
     {
       name: "Application Tracking",
       path: "/ApplicationTracking",
