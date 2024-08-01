@@ -17,12 +17,12 @@ const Header = () => {
           <FaSearch className="absolute left-3 top-2.5 text-gray-400" />
         </div>
       </div>
-      <div className="iconSection flex items-center space-x-4">
-        <div className="bg-gray-300 w-8 h-8 flex items-center justify-center rounded-full">
-          <FaCog className="text-gray-600 hover:text-white cursor-pointer" />
+      <div className="iconSection flex items-center space-x-5">
+        <div className="bg-gray-300 w-10 h-8 flex items-center justify-center rounded-full">
+          <FaCog className="text-gray-600 hover:text-white  cursor-pointer" />
         </div>
-        <div className="bg-gray-300 w-8 h-8 flex items-center justify-center rounded-full">
-          <FaBell className="text-gray-600 hover:text-white cursor-pointer" />
+        <div className="bg-gray-300 w-10 h-8 flex items-center justify-center rounded-full">
+          <FaBell className="text-gray-600 hover:text-white    cursor-pointer" />
         </div>
         <Logout />
       </div>

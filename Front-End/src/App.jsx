@@ -17,6 +17,7 @@ import ApplicationTracking from "./components/Pages/ApplicantTracking/Applicatio
 import Calendar from "./components/Pages/InterviewManagement/Calendar.jsx";
 import InterviewList from "./components/Pages/InterviewManagement/InterviewList.jsx";
 import DashboardPage from "../src/components/Pages/Dashboard/DashboardPage.jsx";
+import JobForm from "./components/Pages/Job_pages/JobForm.jsx";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
         element={<InterviewList />}
       />
       <Route path="/interviewManagement/calendar" element={<Calendar />} />
+      <Route path="/JobForm" element={<JobForm />} />
     </Routes>
   );
 }

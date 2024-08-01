@@ -2,8 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { Navigate, Link } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaSpinner } from "react-icons/fa";
-import backgroundImage from "../../assets/Images/image 91 (1).png";
-import Logo from "../../assets/Images/CC logo.jpg";
+import backgroundImage from "../../assets/Images/HomeImage.jpeg";
+import Logo from "../../assets/Images/coloredcow-logo.png";
 
 const SignUpPage = () => {
   const [email, setEmail] = useState("");
@@ -14,18 +14,28 @@ const SignUpPage = () => {
   const [redirect, setRedirect] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true); // Start loading
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("username", username);
+    formData.append("name", name);
+    if (image) {
+      formData.append("image", image);
+    }
+
     try {
       const response = await axios.post(
         "http://localhost:4000/api/v1/user/register",
+        formData,
         {
-          email,
-          password,
-          username,
-          name,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         },
       );
       setMessage(response.data.message);
@@ -36,7 +46,7 @@ const SignUpPage = () => {
         if (contentType && contentType.indexOf("application/json") !== -1) {
           setMessage(error.response.data.message);
         } else {
-          setMessage("Email and username already exists.");
+          setMessage("Email and username already exist.");
         }
       } else if (error.request) {
         setMessage("No response from server. Please try again later.");
@@ -52,7 +62,7 @@ const SignUpPage = () => {
 
   return (
     <>
-      <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-gray-100">
+      <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-gray-100 ">
         <img
           className="hidden md:block md:w-1/2 h-auto"
           src={backgroundImage}
@@ -63,10 +73,10 @@ const SignUpPage = () => {
             margin: "4rem 2rem",
           }}
         />
-        <div className="bg-white p-8 md:m-6 md:p-14 w-full md:w-1/2 lg:w-1/3 rounded-2xl shadow-lg max-h-[750px] flex flex-col justify-center">
+        <div className="bg-white p-8 md:m-6 md:p-14 w-full md:w-1/2 lg:w-1/3 rounded-2xl shadow-lg max-h-[800px] flex flex-col justify-center">
           <div className="flex flex-col items-center">
-            <img src={Logo} className="mb-10" alt="Logo" />
-            <h2 className="text-3xl md:text-5xl font-bold mb-8 text-center">
+            <img src={Logo} className="mb-4 w-64" alt="Logo" />
+            <h2 className="text-3xl md:text-3xl font-bold mb-8 text-center">
               Sign Up
             </h2>
             {message && (
@@ -74,6 +84,21 @@ const SignUpPage = () => {
             )}
           </div>
           <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label htmlFor="name" className="block text-lg">
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter your name"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="block w-full px-3 py-3 border-b-2 border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-0 sm:text-lg"
+              />
+            </div>
             <div className="mb-4">
               <label htmlFor="username" className="block text-lg">
                 Username
@@ -126,17 +151,15 @@ const SignUpPage = () => {
               </span>
             </div>
             <div className="mb-4">
-              <label htmlFor="name" className="block text-lg">
-                Name
+              <label htmlFor="image" className="block text-lg">
+                Profile Image
               </label>
               <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Enter your name"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                type="file"
+                id="image"
+                name="image"
+                accept="image/*"
+                onChange={(e) => setImage(e.target.files[0])}
                 className="mt-1 block w-full px-3 py-3 border-b-2 border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-0 sm:text-lg"
               />
             </div>

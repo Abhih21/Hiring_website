@@ -9,9 +9,9 @@ function Calendar() {
         {" "}
         <section className="">
           <div>
-            <h1 className="font-bold text-3xl mt-6">Calendar Schedule</h1>
+            <h1 className="font-bold text-3xl mt-4">Calendar Schedule</h1>
           </div>
-          <div className="mt-10">
+          <div className="mt-5">
             <CombinedScheduler />
           </div>
         </section>

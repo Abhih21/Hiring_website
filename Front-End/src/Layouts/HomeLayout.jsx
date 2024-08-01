@@ -7,7 +7,7 @@ function HomeLayout({ children }) {
       <Header />
       <div className="flex h-screen">
         <Sidebar />
-        <main className="flex-1 p-8  lg:ml-72 top-16 bg-gray-50 overflow-auto">
+        <main className="flex-1 p-8  lg:ml-72 bg-slate-50 shadow-md top-16 overflow-auto">
           {children}
         </main>
       </div>

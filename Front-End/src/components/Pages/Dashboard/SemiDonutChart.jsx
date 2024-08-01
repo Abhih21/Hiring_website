@@ -30,9 +30,10 @@ const SemiDonutChart = () => {
         },
       },
     ],
+    labels: ["Developer", "Designer", "Marketing", "DevOps", "Android"],
   };
 
-  const series = [44, 55, 41, 17, 15];
+  const series = [42, 55, 41, 17, 15];
 
   return (
     <div id="chart" className="">

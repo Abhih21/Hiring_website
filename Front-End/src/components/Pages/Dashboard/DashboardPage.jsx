@@ -111,13 +111,13 @@ const DashboardPage = () => {
               seriesData={seriesData}
               categories={categories}
               titleText="Application By Jobs"
-              width={585}
+              width={650}
               height={498}
               colors={colors}
             />
-            <div className="flex flex-col gap-4 w-1/3">
+            <div className="flex mr-5 mt-4 flex-col gap-4 w-1/3">
               <div className="bg-white p-8 shadow-md">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between  items-center">
                   <h1 className="text-2xl font-normal text-gray-800">
                     Job Open
                   </h1>
@@ -125,7 +125,7 @@ const DashboardPage = () => {
                     <BsEye className="text-yellow-600" />
                   </div>
                 </div>
-                <div className="flex mt-6 gap-4 items-end">
+                <div className="flex mt-8 gap-4 items-end">
                   <h1 className="text-5xl font-semibold text-gray-800">12</h1>
                   <span className="text-2xl text-gray-600">Job Opened</span>
                 </div>

@@ -7,17 +7,29 @@
   flex-shrink: 0;
 }
 
+/* SchedulerComponent.css */
+
 .modal {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  width: 400px;
   padding: 20px;
-  max-width: 500px;
-  margin: auto;
-  position: relative;
-  background-color: #fff;
+  background: #fff;
   border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .modal-overlay {
-  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  padding: 2px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 50;
 }
 
 .add-event-button {

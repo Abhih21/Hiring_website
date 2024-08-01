@@ -1,12 +1,20 @@
-import { PlusIcon } from "@heroicons/react/solid";
+import { useEffect } from "react";
 import HomeLayout from "../../../Layouts/HomeLayout";
 import { GoArrowLeft } from "react-icons/go";
+import { PlusIcon } from "@heroicons/react/solid";
 import CategoryMenu from "./CategoryMenu";
 import { FaSearch } from "react-icons/fa";
 import ApplicantsTable from "./ApplicantsTable";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../../store/Auth";
 
 const ApplicationPage = () => {
+  const { candidates, fetchCandidates } = useAuth();
+
+  useEffect(() => {
+    fetchCandidates();
+  }, [fetchCandidates]);
+
   return (
     <>
       <HomeLayout>
@@ -30,7 +38,7 @@ const ApplicationPage = () => {
           </div>
           <div className="flex flex-col md:flex-row justify-between items-center mb-4">
             <h1 className="font-normal text-lg md:text-2xl mb-4 md:mb-0">
-              Total Applicants: 5
+              Total Applicants: 4
             </h1>
             <div className="flex items-center space-x-2 w-full md:w-auto">
               <div className="relative w-full md:w-auto">
@@ -47,7 +55,7 @@ const ApplicationPage = () => {
             </div>
           </div>
           <div className="overflow-x-auto">
-            <ApplicantsTable />
+            <ApplicantsTable candidates={candidates} />
           </div>
         </section>
       </HomeLayout>

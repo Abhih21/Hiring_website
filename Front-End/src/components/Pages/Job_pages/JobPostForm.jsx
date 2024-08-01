@@ -12,11 +12,16 @@ const JobPostForm = () => {
     "Communication",
     "Illustrator",
   ]);
+  const [jobDescription, setJobDescription] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [companyWebsite, setCompanyWebsite] = useState("");
+  const [companyLogo, setCompanyLogo] = useState("");
+  const [applicationDeadline, setApplicationDeadline] = useState("");
 
   return (
     <HomeLayout>
-      <section className="flex flex-col lg:flex-row  lg:w-full  lg:p-1 bg-gray-100 max-h-screen ">
-        <div className="flex flex-col  bg-white rounded shadow-md p-6 space-y-6 lg:space-y-8 lg:w-full">
+      <section className="flex flex-col lg:flex-row shadow-md bg-white lg:w-full lg:p-1 min-h-screen">
+        <div className="flex flex-col rounded  p-6 space-y-6 lg:space-y-8 lg:w-full">
           <div className="flex items-center gap-3 mb-6">
             <GoArrowLeft className="text-2xl" />
             <Link to="">
@@ -29,9 +34,6 @@ const JobPostForm = () => {
             <button className="px-4 py-2 text-blue-600 border-b-2 border-blue-600 text-xl lg:text-2xl">
               Job Details
             </button>
-            <button className="px-4 py-2 text-gray-600 text-xl lg:text-2xl">
-              Job Description
-            </button>
           </div>
           <div>
             <h2 className="text-xl font-semibold mb-2">Basic Information</h2>
@@ -39,7 +41,7 @@ const JobPostForm = () => {
               This information will be displayed publicly
             </p>
             <hr />
-            <div className="mb-6 mt-4">
+            <div className="mb-6 mt-4 ">
               <label className="block text-gray-700 text-lg mb-2">
                 Job Title
               </label>
@@ -150,7 +152,7 @@ const JobPostForm = () => {
                 {skills.map((skill) => (
                   <span
                     key={skill}
-                    className="px-2 py-1 bg-blue-200 text-blue-800 rounded flex items-center space-x-1"
+                    className="px-2 py-1  text-blue-800 rounded flex items-center space-x-1"
                   >
                     <span>{skill}</span>
                     <button
@@ -171,10 +173,61 @@ const JobPostForm = () => {
                 </button>
               </div>
             </div>
+            <div className="mb-6">
+              <label className="block text-gray-700 text-lg mb-2">
+                Job Description
+              </label>
+              <textarea
+                className="w-full md:w-3/4 p-2 border rounded"
+                rows="4"
+                placeholder="Describe the job responsibilities and requirements"
+                value={jobDescription}
+                onChange={(e) => setJobDescription(e.target.value)}
+              />
+            </div>
+            <div className="mb-6">
+              <label className="block text-gray-700 text-lg mb-2">
+                Company Details
+              </label>
+              <input
+                type="text"
+                className="w-full md:w-3/4 p-2 border rounded mb-4"
+                placeholder="Company Name"
+                value={companyName}
+                onChange={(e) => setCompanyName(e.target.value)}
+              />
+              <input
+                type="url"
+                className="w-full md:w-3/4 p-2 border rounded mb-4"
+                placeholder="Company Website"
+                value={companyWebsite}
+                onChange={(e) => setCompanyWebsite(e.target.value)}
+              />
+              <input
+                type="url"
+                className="w-full md:w-3/4 p-2 border rounded mb-4"
+                placeholder="Company Logo URL"
+                value={companyLogo}
+                onChange={(e) => setCompanyLogo(e.target.value)}
+              />
+            </div>
+            <div className="mb-6">
+              <label className="block text-gray-700 text-lg mb-2">
+                Application Deadline
+              </label>
+              <input
+                type="date"
+                className="w-full md:w-3/4 p-2 border rounded"
+                value={applicationDeadline}
+                onChange={(e) => setApplicationDeadline(e.target.value)}
+              />
+            </div>
             <div className="flex justify-end mb-8">
-              <button className="px-4 py-2 bg-blue-600 text-white rounded">
-                Next Step
-              </button>
+              <Link to="/jobPage">
+                <button className="px-4 py-2 bg-blue-600 text-white rounded">
+                  Post Job
+                </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,6 +1,12 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Calendar as BigCalendar, dateFnsLocalizer } from "react-big-calendar";
-import { format, parse, startOfWeek, getDay } from "date-fns";
+import {
+  format,
+  parse,
+  startOfWeek,
+  getDay,
+  format as formatDate,
+} from "date-fns";
 import { enUS } from "date-fns/locale";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import Modal from "react-modal";
@@ -24,15 +30,34 @@ const CombinedScheduler = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
   const [schedulerView, setSchedulerView] = useState("month");
-  const [eventColors] = useState(["#f00", "#0f0", "#00f", "#ff0", "#0ff"]);
   const [selectedEvent, setSelectedEvent] = useState(null);
+
+  const colors = ["#00f", "#f00", "#0f0", "#ff0", "#f0f", "#0ff"];
+
+  const getRandomColor = () => {
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
+
+  useEffect(() => {
+    const savedEvents = JSON.parse(localStorage.getItem("events")) || [];
+    const parsedEvents = savedEvents.map((event) => ({
+      ...event,
+      start: new Date(event.start),
+      end: new Date(event.end),
+    }));
+    setEvents(parsedEvents);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("events", JSON.stringify(events));
+  }, [events]);
 
   const handleDateClick = useCallback((date) => {
     setSelectedDate(date);
     setSchedulerView("day");
   }, []);
 
-  const handleAddEvent = useCallback(() => {
+  const handleAddEvent = () => {
     if (!newEvent.title || !newEvent.start || !newEvent.end) {
       alert("Please fill out all fields");
       return;
@@ -41,18 +66,17 @@ const CombinedScheduler = () => {
     const eventStart = new Date(newEvent.start);
     const eventEnd = new Date(newEvent.end);
 
-    setEvents([
-      ...events,
+    setEvents((prevEvents) => [
+      ...prevEvents,
       {
-        ...newEvent,
+        title: newEvent.title,
         start: eventStart,
         end: eventEnd,
-        color: eventColors[events.length % eventColors.length],
+        color: getRandomColor(),
       },
     ]);
-    setModalIsOpen(false);
     setNewEvent({ title: "", start: "", end: "" });
-  }, [events, newEvent, eventColors]);
+  };
 
   const handleSelectEvent = useCallback((event) => {
     setSelectedEvent(event);
@@ -62,6 +86,17 @@ const CombinedScheduler = () => {
   const handleCloseEventModal = () => {
     setSelectedEvent(null);
     setModalIsOpen(false);
+  };
+
+  const handleDeleteEvent = () => {
+    setEvents((prevEvents) =>
+      prevEvents.filter(
+        (event) =>
+          event.start.toString() !== selectedEvent.start.toString() ||
+          event.end.toString() !== selectedEvent.end.toString(),
+      ),
+    );
+    handleCloseEventModal();
   };
 
   const eventPropGetter = (event) => ({
@@ -77,51 +112,15 @@ const CombinedScheduler = () => {
     0,
   ).getDate();
 
-  return (
-    <div className="scheduler-container">
-      {/* Sidebar */}
-      <div className="sidebar w-72 bg-white shadow-lg p-4">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold">
-            {selectedDate.toLocaleString("default", { month: "long" })}{" "}
-            <span className="text-blue-500">{selectedDate.getFullYear()}</span>
-          </h2>
-          <button className="text-xl font-semibold">+</button>
-        </div>
-        <div className="grid grid-cols-7 text-center text-xs mb-4">
-          <div>SUN</div>
-          <div>MON</div>
-          <div>TUE</div>
-          <div>WED</div>
-          <div>THU</div>
-          <div>FRI</div>
-          <div>SAT</div>
-          {[...Array(daysInMonth)].map((_, index) => (
-            <div
-              key={index}
-              className={`p-1 cursor-pointer ${
-                index + 1 === selectedDate.getDate()
-                  ? "bg-yellow-300 rounded-full"
-                  : ""
-              }`}
-              onClick={() =>
-                handleDateClick(
-                  new Date(
-                    selectedDate.getFullYear(),
-                    selectedDate.getMonth(),
-                    index + 1,
-                  ),
-                )
-              }
-            >
-              {index + 1}
-            </div>
-          ))}
-        </div>
-      </div>
+  const formatTimeRange = (start, end) => {
+    const startTime = formatDate(new Date(start), "h:mma");
+    const endTime = formatDate(new Date(end), "h:mma");
+    return `${startTime}-${endTime}`;
+  };
 
-      {/* Scheduler */}
-      <div className="flex-1 ">
+  return (
+    <div className="scheduler-container bg-white pt-3 flex">
+      <div className="flex-1">
         <BigCalendar
           localizer={localizer}
           events={events}
@@ -135,8 +134,8 @@ const CombinedScheduler = () => {
           onSelectSlot={(slotInfo) => {
             setNewEvent({
               ...newEvent,
-              start: slotInfo.start,
-              end: slotInfo.end,
+              start: slotInfo.start.toISOString().slice(0, 16),
+              end: slotInfo.end.toISOString().slice(0, 16),
             });
             setModalIsOpen(true);
           }}
@@ -145,15 +144,64 @@ const CombinedScheduler = () => {
           onNavigate={(date) => setSelectedDate(date)}
           onView={(view) => setSchedulerView(view)}
         />
-        <button
-          className="add-event-button"
-          onClick={() => setModalIsOpen(true)}
-        >
-          Add Event
-        </button>
+
+        <div className="event-form mt-12 ml-2 p-4 border-t bg-sky-100">
+          <h2 className="text-2xl  font-semibold mb-2">Add Event</h2>
+          <form>
+            <div className="mb-2">
+              <label className="block mb-1 text-xl  mt-5">Title</label>
+              <input
+                type="text"
+                placeholder="Enter title"
+                value={newEvent.title}
+                onChange={(e) =>
+                  setNewEvent({ ...newEvent, title: e.target.value })
+                }
+                className="border p-2 w-full"
+              />
+            </div>
+            <div className="mb-2">
+              <label className="block mb-1 text-xl  mt-5">
+                Start Date & Time
+              </label>
+              <input
+                type="datetime-local"
+                placeholder="start date & time"
+                value={newEvent.start}
+                onChange={(e) =>
+                  setNewEvent({
+                    ...newEvent,
+                    start: e.target.value,
+                  })
+                }
+                className="border p-2 w-full"
+              />
+            </div>
+            <div className="mb-2">
+              <label className="block mb-1 text-xl mt-5">End Date & Time</label>
+              <input
+                type="datetime-local"
+                value={newEvent.end}
+                onChange={(e) =>
+                  setNewEvent({
+                    ...newEvent,
+                    end: e.target.value,
+                  })
+                }
+                className="border p-2 w-full"
+              />
+            </div>
+            <button
+              type="button"
+              onClick={handleAddEvent}
+              className="bg-blue-500 text-white py-2 px-4 mt-8 ml-2 text-xl rounded"
+            >
+              Add Event
+            </button>
+          </form>
+        </div>
       </div>
 
-      {/* Event description modal */}
       {selectedEvent && (
         <Modal
           isOpen={modalIsOpen}
@@ -161,70 +209,42 @@ const CombinedScheduler = () => {
           className="modal"
           overlayClassName="modal-overlay"
         >
-          <h2>Event Details</h2>
-          <p>
+          <h2 className="mt-2 text-2xl text-center font-semibold">
+            Event Details
+          </h2>
+          <p className="mt-2 text-lg">
             <strong>Title:</strong> {selectedEvent.title}
           </p>
-          <p>
+          <p className="mt-2 text-lg">
             <strong>Start:</strong>{" "}
             {new Intl.DateTimeFormat("en-US").format(
               new Date(selectedEvent.start),
             )}
           </p>
-          <p>
+          <p className="mt-2 text-lg">
             <strong>End:</strong>{" "}
             {new Intl.DateTimeFormat("en-US").format(
               new Date(selectedEvent.end),
             )}
           </p>
-          <button onClick={handleCloseEventModal}>Close</button>
+          <p className="mt-2 text-lg">
+            <strong>Time:</strong>{" "}
+            {formatTimeRange(selectedEvent.start, selectedEvent.end)}
+          </p>
+          <button
+            onClick={handleDeleteEvent}
+            className="bg-red-500 text-white py-2 px-4 mr-3 rounded mt-4"
+          >
+            Delete Event
+          </button>
+          <button
+            onClick={handleCloseEventModal}
+            className="bg-gray-500 text-white py-2 px-4 rounded mt-4"
+          >
+            Close
+          </button>
         </Modal>
       )}
-
-      {/* Add Event Modal */}
-      <Modal
-        isOpen={modalIsOpen && !selectedEvent}
-        onRequestClose={() => setModalIsOpen(false)}
-        className="modal"
-        overlayClassName="modal-overlay"
-      >
-        <h2>Add Event</h2>
-        <form>
-          <div>
-            <label>Title</label>
-            <input
-              type="text"
-              value={newEvent.title}
-              onChange={(e) =>
-                setNewEvent({ ...newEvent, title: e.target.value })
-              }
-            />
-          </div>
-          <div>
-            <label>Start</label>
-            <input
-              type="datetime-local"
-              value={newEvent.start}
-              onChange={(e) =>
-                setNewEvent({ ...newEvent, start: e.target.value })
-              }
-            />
-          </div>
-          <div>
-            <label>End</label>
-            <input
-              type="datetime-local"
-              value={newEvent.end}
-              onChange={(e) =>
-                setNewEvent({ ...newEvent, end: e.target.value })
-              }
-            />
-          </div>
-          <button type="button" onClick={handleAddEvent}>
-            Add Event
-          </button>
-        </form>
-      </Modal>
     </div>
   );
 };

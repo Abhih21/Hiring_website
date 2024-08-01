@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import axios from "axios";
 
 export const AuthContext = createContext();
@@ -6,47 +12,54 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [userDetails, setUserDetails] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("accessToken"));
+  const [candidates, setCandidates] = useState([]);
 
-  //   useEffect(() => {
-  //     const storedUserDetails = localStorage.getItem("userDetails");
-  //     if (storedUserDetails) {
-  //       setUserDetails(JSON.parse(storedUserDetails));
-  //     }
-  //   }, []);
+  const fetchUserDetails = useCallback(async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/v1/user/details",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+      if (response.data.success) {
+        setUserDetails(response.data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    }
+  }, [token]);
+
+  const fetchCandidates = useCallback(async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/v1/candidate/applicants",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+      setCandidates(response.data.data); // Set candidates here
+    } catch (error) {
+      console.error("Error fetching candidates:", error);
+    }
+  }, [token]);
 
   useEffect(() => {
     if (token) {
-      // Fetch user details if token is present
-      const fetchUserDetails = async () => {
-        try {
-          const response = await axios.get(
-            "http://localhost:4000/api/v1/user/details",
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            },
-          );
-          if (response.data.success) {
-            setUserDetails(response.data.data);
-            console.log("apiuserdata:", response.data.data);
-          }
-        } catch (error) {
-          console.error("Error fetching user details:", error);
-        }
-      };
-
       fetchUserDetails();
     }
-  }, [token]);
+  }, [token, fetchUserDetails]);
+
+  useEffect(() => {
+    if (token) {
+      fetchCandidates();
+    }
+  }, [token, fetchCandidates]);
 
   const storeTokenInLS = (ServerAccessToken) => {
     localStorage.setItem("accessToken", ServerAccessToken);
     setToken(ServerAccessToken);
   };
-
-  //   const storeUserDetailsInLS = (user) => {
-  //     localStorage.setItem("userDetails", JSON.stringify(user));
-  //     setUserDetails(user);
-  //   };
 
   const removeTokenLS = () => {
     localStorage.removeItem("accessToken");
@@ -60,8 +73,9 @@ export const AuthProvider = ({ children }) => {
       value={{
         token,
         userDetails,
+        candidates,
+        fetchCandidates,
         storeTokenInLS,
-        // storeUserDetailsInLS,
         removeTokenLS,
       }}
     >

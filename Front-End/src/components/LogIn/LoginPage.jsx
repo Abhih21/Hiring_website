@@ -2,8 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../store/Auth";
-import backgroundImage from "../../assets/Images/image 91 (1).png";
-import Logo from "../../assets/Images/CC logo.jpg";
+import backgroundImage from "../../assets/Images/HomeImage.jpeg";
+import Logo from "../../assets/Images/coloredcow-logo.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const LoginPage = () => {

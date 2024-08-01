@@ -14,14 +14,18 @@ const corsOptions = {
   credentials: true, // Allow credentials (cookies, authorization headers)
 };
 
+app.use('/uploads', express.static('uploads'));
+
 app.use(cors(corsOptions));
 app.options(cors(corsOptions));
 
 // Routes
 import userRouter from './routes/user.routes.js';
 import userDetailsRouter from './routes/userDetails.routes.js'; // Corrected import statement
+import candidateRouter from './routes/candidate.routes.js';
 
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/user', userDetailsRouter); // Corrected route usage
+app.use('/api/v1/candidate', candidateRouter); // Corrected route usage
 
 export { app };
