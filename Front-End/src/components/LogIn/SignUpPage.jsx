@@ -1,123 +1,191 @@
-// src/components/LoginPage.jsx
-import  { useState } from 'react';
-import axios from 'axios';
-import backgroundImage from '../../assets/image 91 (1).png'
-import Logo from '../../assets/CC logo.jpg'
-import { Navigate } from 'react-router-dom';
+import { useState } from "react";
+import axios from "axios";
+import { Navigate, Link } from "react-router-dom";
+import { FaEye, FaEyeSlash, FaSpinner } from "react-icons/fa";
+import backgroundImage from "../../assets/Images/HomeImage.jpeg";
+import Logo from "../../assets/Images/coloredcow-logo.png";
 
 const SignUpPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
-  const [name, setName] = useState('');
-  const [message, setMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [message, setMessage] = useState("");
   const [redirect, setRedirect] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Start loading
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("username", username);
+    formData.append("name", name);
+    if (image) {
+      formData.append("image", image);
+    }
+
     try {
-      const response = await axios.post('l', { email, password, username, name });
+      const response = await axios.post(
+        "http://localhost:4000/api/v1/user/register",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        },
+      );
       setMessage(response.data.message);
-      console.log(response.data.message);
-      console.log(response.data);
-      setRedirect(true)
+      setRedirect(true);
     } catch (error) {
-       if (error.response) {
-        // Server responded with a status other than 2xx
-        setMessage(error.response.data.message);
+      if (error.response) {
+        const contentType = error.response.headers["content-type"];
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+          setMessage(error.response.data.message);
+        } else {
+          setMessage("Email and username already exist.");
+        }
       } else if (error.request) {
-        // Request was made but no response received
-        setMessage('No response from server. Please try again later.');
+        setMessage("No response from server. Please try again later.");
       } else {
-        // Something else happened
-        setMessage('An unexpected error occurred. Please try again.');
+        setMessage("An unexpected error occurred. Please try again.");
       }
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
-  if (redirect) return <Navigate to={'/loginpage'} />
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 ">
-      <img className='hidden md:block relative w-full bg-cover bg-center' src={backgroundImage}  alt="" />
-      <div className="bg-white p-14 left-2/4 absolute w-5/12 rounded-2xl shadow-lg ">
-      <div className='pl-7 pr-7  flex flex-col'>
-      <img src={Logo} className='mb-16' alt="" />
-        <h2 className="text-5xl font-bold mb-12 text-center">SignUp </h2>
-        {message && <p className="text-center text-red-500">{message}</p>}
-        </div>
-        <form onSubmit={handleSubmit}>
-          <div className='p-4'>
-          <div className="mb-4">
-            <label htmlFor="Username" className="block text-lg">
-              username
-            </label>
-            <input
-              type="name"
-              id="username"
-              name="username"
-              placeholder='Enter your username'
-              required
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="mt-1 block w-full px-3 py-5 border-b-2 border-gray-300 rounded-md shadow-none focus:outline-none focus:border-indigo-500 focus:ring-0 sm:text-lg"
-            />
-          </div>
-          <div className="mb-10 ">
-            <label htmlFor="email" className="block text-lg  rounded-md rounded-b-xl">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder='Enter your email id'
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-               className="mt-1 block w-full px-3 py-5 border-b-2 border-gray-300 rounded-md shadow-none focus:outline-none focus:border-indigo-500 focus:ring-0 sm:text-lg"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="password" className="block text-lg">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder='create password'
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full px-3 py-5 border-b-2 border-gray-300 rounded-md shadow-none focus:outline-none focus:border-indigo-500 focus:ring-0 sm:text-lg"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="name" className="block text-lg">
-              name
-            </label>
-            <input
-              type="name"
-              id="name"
-              name="name"
-              placeholder='enter your name'
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="mt-1 block w-full px-3 py-5 border-b-2 border-gray-300 rounded-md shadow-none focus:outline-none focus:border-indigo-500 focus:ring-0 sm:text-lg"
-            />
-          </div>
+  if (redirect) return <Navigate to="/loginPage" />;
 
+  return (
+    <>
+      <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-gray-100 ">
+        <img
+          className="hidden md:block md:w-1/2 h-auto"
+          src={backgroundImage}
+          alt="Background"
+          style={{
+            objectFit: "cover",
+            objectPosition: "center",
+            margin: "4rem 2rem",
+          }}
+        />
+        <div className="bg-white p-8 md:m-6 md:p-14 w-full md:w-1/2 lg:w-1/3 rounded-2xl shadow-lg max-h-[800px] flex flex-col justify-center">
+          <div className="flex flex-col items-center">
+            <img src={Logo} className="mb-4 w-64" alt="Logo" />
+            <h2 className="text-3xl md:text-3xl font-bold mb-8 text-center">
+              Sign Up
+            </h2>
+            {message && (
+              <p className="text-center text-red-500 mb-4">{message}</p>
+            )}
           </div>
-          <button
-            type="submit"
-            className="w-11/12 ml-6 bg-blue-900 text-white text-2xl py-6 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Sign Up
-          </button>
-        </form>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label htmlFor="name" className="block text-lg">
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter your name"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="block w-full px-3 py-3 border-b-2 border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-0 sm:text-lg"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="username" className="block text-lg">
+                Username
+              </label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Enter your username"
+                required
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="mt-1 block w-full px-3 py-3 border-b-2 border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-0 sm:text-lg"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-lg">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email id"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="mt-1 block w-full px-3 py-3 border-b-2 border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-0 sm:text-lg"
+              />
+            </div>
+            <div className="mb-4 relative">
+              <label htmlFor="password" className="block text-lg">
+                Password
+              </label>
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                placeholder="Create password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="mt-1 block w-full px-3 py-3 border-b-2 border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-0 sm:text-lg"
+              />
+              <span
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+            <div className="mb-4">
+              <label htmlFor="image" className="block text-lg">
+                Profile Image
+              </label>
+              <input
+                type="file"
+                id="image"
+                name="image"
+                accept="image/*"
+                onChange={(e) => setImage(e.target.files[0])}
+                className="mt-1 block w-full px-3 py-3 border-b-2 border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-0 sm:text-lg"
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-blue-900 text-white text-2xl py-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              disabled={loading} // Disable the button while loading
+            >
+              {loading ? (
+                <FaSpinner className="animate-spin mx-auto" />
+              ) : (
+                "Sign Up"
+              )}
+            </button>
+            <div className="mt-4 text-center">
+              <p>
+                Already have an account?{" "}
+                <span className="text-blue-600">
+                  <Link to="/loginPage">Login</Link>
+                </span>
+              </p>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

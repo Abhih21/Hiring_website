@@ -5,15 +5,16 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "author": "Abhishek Negi",
   "license": "ISC",
   "dependencies": {
+    "argon2": "^0.40.3",
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
-    "bcryptjs": "^2.4.3",
-    "cloudinary": "^2.2.0",
+    "cloudinary": "^2.4.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -24,5 +25,10 @@
     "mongoose-aggregate-paginate-v2": "^1.1.0",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.7.0",
+    "globals": "^15.8.0",
+    "prettier": "^3.3.3"
   }
 }
