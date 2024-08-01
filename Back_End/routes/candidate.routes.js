@@ -7,13 +7,9 @@ import {
 
 const router = Router();
 
-router.route('/apply').post(
-  upload.fields([
-    { name: 'resume', maxCount: 1 },
-    { name: 'coverLetter', maxCount: 1 },
-  ]),
-  applyDetails
-);
+router
+  .route('/apply')
+  .post(upload.fields([{ name: 'resume', maxCount: 1 }]), applyDetails);
 router.route('/applicants').get(getAllCandidates);
 
 export default router;

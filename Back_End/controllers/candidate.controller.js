@@ -39,7 +39,6 @@ const applyDetails = asyncHandler(async (req, res) => {
     });
 
     await newCandidate.save();
-    console.log('newCandidate:', newCandidate);
 
     res.json(
       new ApiResponse(201, newCandidate, 'Application submitted successfully.')
