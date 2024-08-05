@@ -62,4 +62,16 @@ const createJobPost = asyncHandler(async (req, res) => {
   }
 });
 
-export { createJobPost };
+const getJobPost = asyncHandler(async (req, res) => {
+  try {
+    const jobPosts = await JobPost.find();
+    res.json(new ApiResponse(200, jobPosts, 'Jobpost retrieved successfully'));
+  } catch (error) {
+    console.error('Error retrieving Jobpost', error);
+    res
+      .status(400)
+      .json(new ApiResponse(400, error.message, 'Failed to retrieve job data'));
+  }
+});
+
+export { createJobPost, getJobPost };

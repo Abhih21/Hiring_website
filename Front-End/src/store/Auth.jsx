@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
   const [userDetails, setUserDetails] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("accessToken"));
   const [candidates, setCandidates] = useState([]);
+  const [jobs, setJobs] = useState([]);
 
   const fetchUserDetails = useCallback(async () => {
     try {
@@ -44,6 +45,21 @@ export const AuthProvider = ({ children }) => {
     }
   }, [token]);
 
+  const fetchPostJobs = useCallback(async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/v1/job/getJobPost",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+      setJobs(response.data.data);
+      console.log("jobdata fetched:", response.data.data);
+    } catch (error) {
+      console.error("Error fetching Jobs", error);
+    }
+  }, [token]);
+
   useEffect(() => {
     if (token) {
       fetchUserDetails();
@@ -55,6 +71,12 @@ export const AuthProvider = ({ children }) => {
       fetchCandidates();
     }
   }, [token, fetchCandidates]);
+
+  useEffect(() => {
+    if (token) {
+      fetchPostJobs();
+    }
+  }, [token, fetchPostJobs]);
 
   const storeTokenInLS = (ServerAccessToken) => {
     localStorage.setItem("accessToken", ServerAccessToken);
@@ -74,6 +96,8 @@ export const AuthProvider = ({ children }) => {
         token,
         userDetails,
         candidates,
+        jobs,
+        fetchPostJobs,
         fetchCandidates,
         storeTokenInLS,
         removeTokenLS,
