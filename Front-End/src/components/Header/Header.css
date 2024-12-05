@@ -1,4 +1,6 @@
-header{
-    width: 81%;
-    height: 80px;
+@media (max-width: 639px) {
+  .searchbar {
+    width: 5%;
+    margin-left: 30px;
+  }
 }
